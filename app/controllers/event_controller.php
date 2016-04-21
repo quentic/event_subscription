@@ -4,11 +4,11 @@
 require('../../smarty/libs/Smarty.class.php');
 $smarty = new Smarty();
 
-$smarty->setTemplateDir('../../app/views/events');
 $smarty->setCompileDir('../../smarty/templates_c');
 $smarty->setCacheDir('../../smarty/cache');
 $smarty->setConfigDir('../../smarty/configs');
 
+$smarty->setTemplateDir('../../app/views/events');
 ?>
 
 <?php
