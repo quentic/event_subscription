@@ -22,13 +22,13 @@
                 </thead>
 
                 <tbody>
-                    {foreach from=$stages item=stage}
+                    {foreach from=$events item=event}
                     <tr>
-                        <td>{$stage->nom}</td>
-                        <td>{$stage->periode}</td>
-                        <td><a href="event_controller.php?action=show&id={$stage->id}">Détail</a></td>
-                        <td><a href="event_controller.php?action=edit&id={$stage->id}">Modifier</a></td>
-                        <td><a href="event_controller.php?action=delete&id={$stage->id}">Supprimer</a></td>
+                        <td>{$event->nom}</td>
+                        <td>{$event->periode}</td>
+                        <td><a href="event_controller.php?action=show&id={$event->id}">Détail</a></td>
+                        <td><a href="event_controller.php?action=edit&id={$event->id}">Modifier</a></td>
+                        <td><a href="event_controller.php?action=delete&id={$event->id}">Supprimer</a></td>
                     </tr>
                     {/foreach}
                 </tbody>

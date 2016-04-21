@@ -13,8 +13,8 @@ $smarty->setTemplateDir('../../app/views/events');
 
 <?php
 
-    class stage{
-        function stage($id, $nom, $periode){
+    class event{
+        function event($id, $nom, $periode){
             $this->id = $id;
             $this->nom = $nom;
             $this->periode = $periode;
@@ -23,10 +23,10 @@ $smarty->setTemplateDir('../../app/views/events');
 
     function index($smarty){
         // Remplacer ces 2 lignes par un appel mysql sur tous les stages
-        $stage1 = new stage('1', 'Vars', 'Février 2016');
-        $stage2 = new stage('2', 'Sölden', 'Avril 2016');
+        $event1 = new event('1', 'Vars', 'Février 2016');
+        $event2 = new event('2', 'Sölden', 'Avril 2016');
 
-        $smarty->assign('stages', array($stage1, $stage2));
+        $smarty->assign('events', array($event1, $event2));
         $smarty->display('index.html');
     }
 
