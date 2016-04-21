@@ -1,0 +1,17 @@
+body {
+
+}
+nav ul{
+  padding:0;
+  background: #dbb;
+}
+nav li{
+  display: inline-block;
+  padding:1em;
+}
+nav li:hover{
+  background-color: #abb;
+}
+nav a{
+  text-decoration: none;
+}
