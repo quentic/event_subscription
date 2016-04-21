@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+        <head>
+            <meta charset="utf-8" />
+            <title>La liste des stages</title>
+            <link rel="stylesheet" href="style.css" />
+        </head>
+
+        <body>
+            <h1>La liste des stages</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Période</th>
+                        <th>Détail</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {foreach from=$stages item=stage}
+                    <tr>
+                        <td>{$stage->nom}</td>
+                        <td>{$stage->periode}</td>
+                        <td><a href="event_controller.php?action=show&id={$stage->id}">Détail</a></td>
+                        <td><a href="event_controller.php?action=edit&id={$stage->id}">Modifier</a></td>
+                        <td><a href="event_controller.php?action=delete&id={$stage->id}">Supprimer</a></td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+        </body>
+
+</html>
