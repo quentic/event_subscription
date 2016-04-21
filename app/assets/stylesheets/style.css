@@ -15,3 +15,10 @@ nav li:hover{
 nav a{
   text-decoration: none;
 }
+table{
+  border-collapse:collapse;
+  border:3px ridge gray;
+}
+table td{
+  border:3px ridge gray;
+}
