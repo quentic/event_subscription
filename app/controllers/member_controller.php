@@ -22,7 +22,7 @@ $smarty->setTemplateDir('../../app/views/members');
     }
 
     function index($smarty){
-        // Remplacer ces 2 lignes par un appel mysql sur tous les stages
+        // Remplacer ces 3 lignes par un appel mysql sur tous les stages
         $member1 = new member('1', 'Jeandel', 'Thierry');
         $member2 = new member('2', 'Quentin', 'Christian');
         $member3 = new member('3', 'Grandmougin', 'Xavier');
