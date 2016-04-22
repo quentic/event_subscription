@@ -1,5 +1,6 @@
 <?php
 
+require('../../config/database.php');
 require('../../config/smarty.php');
 
 // initialisations propres à ce controleur
