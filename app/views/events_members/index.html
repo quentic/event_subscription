@@ -5,8 +5,6 @@
     <meta charset="utf-8" />
     <title>Oxygène : S'inscrire aux stages</title>
     <link rel="stylesheet" href="../assets/stylesheets/style.css" />
-    <script src="../assets/javascripts/jquery-2.2.3.min.js"></script>
-    <script src="../assets/javascripts/application.js"></script>
   </head>
 
   <body>
@@ -18,32 +16,39 @@
     </nav>
 
     <form>
-		<table>
-		  <thead>
-			  <tr>
-				  <td></td>
-   				  {foreach from=$events item=event}
-				  <td>{$event->nom}</td>
-				  {/foreach}
-			  </tr>
-		  </thead>
-          {foreach from=$members item=member}
-          <tr>
-			<td>{$member->prenom} {$member->nom}</td>
-			{foreach from=$events item=event}
-
-				{if in_array([$event->id, $member->id], $subscriptions)}
-					<td><input type="checkbox" class="inscrire" data-event-id="{$event->id}" data-member-id="{$member->id}" value="" checked="checked"></td>
-				{else}
-					<td><input type="checkbox" class="inscrire" data-event-id="{$event->id}" data-member-id="{$member->id}" value=""></td>
-				{/if}
-
-			{/foreach}
-		  </tr>
+    <table data-tablesaw-sortable data-tablesaw-no-labels>
+      <thead>
+        <tr>
+          <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
+          <th data-tablesaw-sortable-col>Prénom</th>
+          {foreach from=$events item=event}
+            <th>{$event->nom}</th>
           {/foreach}
+        </tr>
+      </thead>
+      <tbody>
+        {foreach from=$members item=member}
+        <tr>
+          <td>{$member->nom}</td>
+          <td>{$member->prenom}</td>
+          {foreach from=$events item=event}
+
+            {if in_array([$event->id, $member->id], $subscriptions)}
+              <td><input type="checkbox" class="inscrire" data-event-id="{$event->id}" data-member-id="{$member->id}" value="" checked="checked"></td>
+            {else}
+              <td><input type="checkbox" class="inscrire" data-event-id="{$event->id}" data-member-id="{$member->id}" value=""></td>
+          {/if}
+
+          {/foreach}
+        </tr>
+        {/foreach}
+      </tbody>
 		</table>
     </form>
 
+    <script src="../assets/javascripts/jquery-2.2.3.min.js"></script>
+    <script src="../assets/javascripts/application.js"></script>
+    <script src="../assets/javascripts/tablesaw.js"></script>
   </body>
 
 </html>
