@@ -17,11 +17,13 @@ require('../models/events_member.php');
     $event = new Event();
     $smarty->assign('events',$event->all());
 
+    // Récupérer les stagiaires
     $member = new Member();
     $smarty->assign('members',$member->all());
 
-    // remplacer cette ligne par un appel mysql sur toutes les inscriptions
-    $smarty->assign('subscriptions', array( '1' => ['1' => 1, '2' => 1], '2' => ['1' => 0, '2' => 1], '3' => ['1' => 1, '2' => 1] ));
+    // Récupérer les inscriptions
+    $events_member = new EventsMember();
+    $smarty->assign('subscriptions', $events_member->all());
 
     $smarty->display('index.html');
   }
