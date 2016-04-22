@@ -2,70 +2,59 @@
 
 require('../../config/smarty.php');
 
+// initialisations propres à ce controleur
 $smarty->setTemplateDir('../../app/views/events_members');
-require('../models/events_members.php');
+require('../models/event.php');
+require('../models/member.php');
+require('../models/events_member.php');
 ?>
 
 <?php
 
-    class member{
-        function member($id, $nom, $prenom){
-            $this->id = $id;
-            $this->nom = $nom;
-            $this->prenom = $prenom;
-        }
-    }
+  function index($smarty){
+    // Remplacer ces 2 lignes par un appel mysql sur tous les stages
+    $event1 = new Event('1', 'Vars', 'Février 2016');
+    $event2 = new Event('2', 'Sölden', 'Avril 2016');
 
-    class event{
-        function event($id, $nom, $periode){
-            $this->id = $id;
-            $this->nom = $nom;
-            $this->periode = $periode;
-        }
-    }
+    $smarty->assign('events', array($event1, $event2));
 
-    function index($smarty){
-        // Remplacer ces 2 lignes par un appel mysql sur tous les stages
-        $event1 = new event('1', 'Vars', 'Février 2016');
-        $event2 = new event('2', 'Sölden', 'Avril 2016');
+    // Remplacer ces 3 lignes par un appel mysql sur tous les stages
+    $member1 = new Member('1', 'Jeandel', 'Thierry');
+    $member2 = new Member('2', 'Quentin', 'Christian');
+    $member3 = new Member('3', 'Grandmougin', 'Xavier');
 
-        $smarty->assign('events', array($event1, $event2));
+    // remplacer ces 3 lignes par un appel mysql sur toutes les inscriptions
+    $smarty->assign('subscriptions', array( '1' => ['1' => 1, '2' => 1], '2' => ['1' => 0, '2' => 1], '3' => ['1' => 1, '2' => 1] ));
 
-        // Remplacer ces 3 lignes par un appel mysql sur tous les stages
-        $member1 = new member('1', 'Jeandel', 'Thierry');
-        $member2 = new member('2', 'Quentin', 'Christian');
-        $member3 = new member('3', 'Grandmougin', 'Xavier');
+    $smarty->assign('members', array($member1, $member2, $member3));
+    $smarty->display('index.html');
+  }
 
-		// remplacer ces 3 lignes par un appel mysql sur toutes les inscriptions
-		$smarty->assign('subscriptions', array( '1' => ['1' => 1, '2' => 1], '2' => ['1' => 0, '2' => 1], '3' => ['1' => 1, '2' => 1] ));
+  $event_id = $_GET['event_id'];
+  $member_id = $_GET['member_id'];
 
-        $smarty->assign('members', array($member1, $member2, $member3));
-        $smarty->display('index.html');
-    }
+  switch ($_GET['action']) {
+    case 'create':
+      # créer l'association membre <=> stage
+      $inscription = new EventsMember();
+      $inscription->associer($event_id, $member_id);
 
-	$event_id = $_GET['event_id'];
-	$member_id = $_GET['member_id'];
+      # Affiche la page index
+      index($smarty);
+      break;
 
-    switch ($_GET['action']) {
-        case 'create':
-			# créer l'association membre <=> stage
-			associer($event_id, $member_id);
+    case 'delete':
+      # détruire l'association membre <=> stage
+      $desinscription = new EventsMember();
+      $desinscription->dissocier($event_id, $member_id);
 
-            # Affiche la page index
-            index($smarty);
-            break;
+      # Affiche la page index
+      index($smarty);
+      break;
 
-        case 'delete':
-			# détruire l'association membre <=> stage
-			dissocier($event_id, $member_id);
-
-            # Affiche la page index
-            index($smarty);
-            break;
-
-        default:
-            # Affiche la page index par défaut
-            index($smarty);
-    }
+    default:
+      # Affiche la page index par défaut
+      index($smarty);
+  }
 
 ?>
