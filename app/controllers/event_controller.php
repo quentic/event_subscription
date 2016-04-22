@@ -1,5 +1,6 @@
 <?php
 
+require('../../config/database.php');
 require('../../config/smarty.php');
 
 // initialisations propres à ce controleur
@@ -11,10 +12,9 @@ $smarty->setTemplateDir('../../app/views/events');
 
     function index($smarty){
         // Remplacer ces 2 lignes par un appel mysql sur tous les stages
-        $event1 = new Event('1', 'Vars', 'Février 2016');
-        $event2 = new Event('2', 'Sölden', 'Avril 2016');
+        $event = new Event();
 
-        $smarty->assign('events', array($event1, $event2));
+        $smarty->assign('events',$event->all());
         $smarty->display('index.html');
     }
 
