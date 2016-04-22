@@ -11,12 +11,9 @@ $smarty->setTemplateDir('../../app/views/members');
 <?php
 
     function index($smarty){
-        // Remplacer ces 3 lignes par un appel mysql sur tous les stages
-        $member1 = new Member('1', 'Jeandel', 'Thierry');
-        $member2 = new Member('2', 'Quentin', 'Christian');
-        $member3 = new Member('3', 'Grandmougin', 'Xavier');
+        $member = new Member();
 
-        $smarty->assign('members', array($member1, $member2, $member3));
+        $smarty->assign('members', $member->all());
         $smarty->display('index.html');
     }
 
