@@ -11,10 +11,9 @@ $smarty->setTemplateDir('../../app/views/events');
 <?php
 
     function index($smarty){
-        // Remplacer ces 2 lignes par un appel mysql sur tous les stages
         $event = new Event();
-
         $smarty->assign('events',$event->all());
+
         $smarty->display('index.html');
     }
 
