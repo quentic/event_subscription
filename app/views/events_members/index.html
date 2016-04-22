@@ -33,9 +33,9 @@
 			{foreach from=$events item=event}
 
 				{if in_array([$event->id, $member->id], $subscriptions)}
-					<td><input type="checkbox" class="inscrire" data-stage-id="{$event->id}" data-member-id="{$member->id}" value="" checked="checked"></td>
+					<td><input type="checkbox" class="inscrire" data-event-id="{$event->id}" data-member-id="{$member->id}" value="" checked="checked"></td>
 				{else}
-					<td><input type="checkbox" class="inscrire" data-stage-id="{$event->id}" data-member-id="{$member->id}" value=""></td>
+					<td><input type="checkbox" class="inscrire" data-event-id="{$event->id}" data-member-id="{$member->id}" value=""></td>
 				{/if}
 
 			{/foreach}
