@@ -3,9 +3,10 @@
 // an event which members can subscribe to
 class Event{
 
-  function __construct($t_post){
-    $this->nom = $t_post['nom' ];
-    $this->periode = $t_post['periode'];
+  function __construct($t_data){
+    $this->id = $t_data['id' ];
+    $this->nom = $t_data['nom' ];
+    $this->periode = $t_data['periode'];
   }
     
    // Sélectionner tous les stages
@@ -23,6 +24,12 @@ class Event{
    // enregistrer un nouvel enregistrement dans la base
    function save(){
      $query = "INSERT INTO events (nom, periode) VALUES ('$this->nom', '$this->periode')";
+     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+     }
+    
+   // supprimer un enregistrement dans la base
+   function destroy(){
+     $query = "DELETE FROM events WHERE id=$this->id";
      $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
      }
 }

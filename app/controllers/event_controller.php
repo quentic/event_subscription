@@ -21,10 +21,22 @@ $smarty->setTemplateDir('../../app/views/events');
         $smarty->display('new.html');
     }
 
+    // Enregistre un event / stage
     function save($smarty){
         $event = new Event($_POST);
         $event->save();
 
+        // on ré-affiche la liste des stages
+        $smarty->assign('events', $event->all());
+        $smarty->display('index.html');
+    }
+
+    // Supprime un event / stage
+    function destroy($smarty){
+        $event = new Event($_GET);
+        $event->destroy();
+
+        // on ré-affiche la liste des stages
         $smarty->assign('events', $event->all());
         $smarty->display('index.html');
     }
@@ -53,7 +65,8 @@ $smarty->setTemplateDir('../../app/views/events');
           case 'show':
               break;
 
-          case 'delete':
+          case 'destroy':
+              destroy($smarty);
               break;
 
           default:
