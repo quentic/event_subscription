@@ -11,7 +11,7 @@ class Event{
     
    // Sélectionner tous les stages
    function all() {
-     $query = 'SELECT * FROM events';
+     $query = 'SELECT * FROM events ORDER BY id';
      $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
      $t_result = [];
 
