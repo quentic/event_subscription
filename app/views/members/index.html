@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-        <head>
-            <meta charset="utf-8" />
-            <title>Oxygène : La liste des stagiaires</title>
-            <link rel="stylesheet" href="../assets/stylesheets/style.css" />
-        </head>
+  <head>
+      <meta charset="utf-8" />
+      <title>Oxygène : La liste des stagiaires</title>
+      <link rel="stylesheet" href="../assets/stylesheets/style.css" />
+  </head>
 
-        <body>
-            <h1>La liste des stagiaires</h1>
+  <body>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
+     <nav>
+        <ul>
+          <li><a href="../controllers/member_controller.php?action=new">Nouveau stagiaire</a></li>
+          <li><a href="../controllers/event_controller.php">Les stages</a></li>
+          <li><a href="../controllers/events_member_controller.php">Les inscriptions</a></li>
+        </ul>
+      </nav>
 
-                <tbody>
-                    {foreach from=$members item=member}
-                    <tr>
-                        <td>{$member->nom}</td>
-                        <td>{$member->prenom}</td>
-                        <td><a href="member_controller.php?action=show&id={$member->id}">Détail</a></td>
-                        <td><a href="member_controller.php?action=edit&id={$member->id}">Modifier</a></td>
-                        <td><a href="member_controller.php?action=delete&id={$member->id}">Supprimer</a></td>
-                    </tr>
-                    {/foreach}
-                </tbody>
-            </table>
-        </body>
+      <h1>La liste des stagiaires</h1>
+
+      <table>
+          <thead>
+              <tr>
+                  <th>Nom</th>
+                  <th>Prénom</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+              </tr>
+          </thead>
+
+          <tbody>
+              {foreach from=$members item=member}
+              <tr>
+                  <td>{$member->nom}</td>
+                  <td>{$member->prenom}</td>
+                  <td><a href="member_controller.php?action=show&id={$member->id}">Détail</a></td>
+                  <td><a href="member_controller.php?action=edit&id={$member->id}">Modifier</a></td>
+                  <td><a href="member_controller.php?action=destroy&id={$member->id}">Supprimer</a></td>
+              </tr>
+              {/foreach}
+          </tbody>
+      </table>
+  </body>
 
 </html>
