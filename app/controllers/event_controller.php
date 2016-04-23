@@ -46,32 +46,33 @@ $smarty->setTemplateDir('../../app/views/events');
       index($smarty);
 
     else
+      // analyse l'action demandée
       switch ($_GET["action"]) {
-          case 'new':
-              # Affiche la page new.html
-              new_m($smarty);
-              break;
+        case 'new':
+          # Affiche la page new.html
+          new_m($smarty);
+          break;
 
-          case 'create':
-              save($smarty);
-              break;
+        case 'create':
+          save($smarty);
+          break;
 
-          case 'edit':
-              break;
+        case 'edit':
+          break;
 
-          case 'update':
-              break;
+        case 'update':
+          break;
 
-          case 'show':
-              break;
+        case 'show':
+          break;
 
-          case 'destroy':
-              destroy($smarty);
-              break;
+        case 'destroy':
+          destroy($smarty);
+          break;
 
-          default:
-              # Affiche la page index par défaut
-              index($smarty);
+        default:
+          # Affiche la page index par défaut
+          index($smarty);
       }
 
 ?>
