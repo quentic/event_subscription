@@ -21,13 +21,13 @@ class Event{
      return $t_result;
    }
     
-   // enregistrer un nouvel enregistrement dans la base
+   // enregistrer un nouveau event/stage dans la base
    function save(){
      $query = "INSERT INTO events (nom, periode) VALUES ('$this->nom', '$this->periode')";
      $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
      }
     
-   // supprimer un enregistrement dans la base
+   // supprimer un event/stage de la base
    function destroy(){
      $query = "DELETE FROM events WHERE id=$this->id";
      $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
