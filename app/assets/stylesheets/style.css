@@ -1,5 +1,5 @@
 body {
-
+  font:16px Arial, sans-serif;
 }
 nav ul{
   padding:0;
@@ -18,8 +18,12 @@ nav a{
 }
 table{
   border-collapse:collapse;
-  border:3px ridge gray;
+  border:none;
 }
-table td{
-  border:3px ridge gray;
+tbody tr:nth-child(odd){
+  background:#ddd;
+}
+th, td{
+  padding:1em;
+  border:none;
 }
