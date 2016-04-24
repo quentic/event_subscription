@@ -3,10 +3,24 @@
 // an event which members can subscribe to
 class Event{
 
-  function __construct($t_data){
-    $this->id = $t_data['id' ];
-    $this->nom = $t_data['nom' ];
-    $this->periode = $t_data['periode'];
+  function __construct(){
+    $this->id = $_GET['id'];
+
+    if (!empty($_POST)) {
+      // Récupère les données du event/stage via le $_POST
+      $this->nom = $_POST['nom' ];
+      $this->periode = $_POST['periode'];
+      
+    } else if($this->id != '') {
+      // Récupère les données du event/stage via son id
+      $query = "SELECT * FROM events WHERE id=$this->id";
+      $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+      
+      $member = mysql_fetch_object($result);
+
+      $this->nom = $member->nom;
+      $this->periode = $member->periode;
+    }
   }
     
    // Sélectionner tous les stages
@@ -26,6 +40,12 @@ class Event{
      $query = "INSERT INTO events (nom, periode) VALUES ('$this->nom', '$this->periode')";
      $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
      }
+    
+  // met à jour un event/stage dans la base
+  function update(){
+    $query = "UPDATE events SET nom='$this->nom', periode='$this->periode' WHERE id=$this->id";
+    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    }
     
    // supprimer un event/stage de la base
    function destroy(){
