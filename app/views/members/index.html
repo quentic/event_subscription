@@ -9,39 +9,43 @@
 
   <body>
 
-     <nav>
-        <ul>
-          <li><a href="../controllers/member_controller.php?action=new">Nouveau stagiaire</a></li>
-          <li><a href="../controllers/event_controller.php">Les stages</a></li>
-          <li><a href="../controllers/events_member_controller.php">Les inscriptions</a></li>
-        </ul>
-      </nav>
+    <nav>
+      <ul>
+        <li><a href="../controllers/member_controller.php?action=new">Nouveau stagiaire</a></li>
+        <li><a href="../controllers/event_controller.php">Les stages</a></li>
+        <li><a href="../controllers/events_member_controller.php">Les inscriptions</a></li>
+      </ul>
+    </nav>
 
-      <h1>La liste des stagiaires</h1>
+    <h1>La liste des stagiaires</h1>
 
-      <table>
-          <thead>
-              <tr>
-                  <th>Nom</th>
-                  <th>Prénom</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-              </tr>
-          </thead>
+    <table data-tablesaw-sortable data-tablesaw-no-labels>
+      <thead>
+        <tr>
+          <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
+          <th data-tablesaw-sortable-col>Prénom</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
 
-          <tbody>
-              {foreach from=$members item=member}
-              <tr>
-                  <td>{$member->nom}</td>
-                  <td>{$member->prenom}</td>
-                  <td><a href="member_controller.php?action=show&id={$member->id}">Détail</a></td>
-                  <td><a href="member_controller.php?action=edit&id={$member->id}">Modifier</a></td>
-                  <td><a href="member_controller.php?action=destroy&id={$member->id}">Supprimer</a></td>
-              </tr>
-              {/foreach}
-          </tbody>
-      </table>
+      <tbody>
+        {foreach from=$members item=member}
+        <tr>
+          <td>{$member->nom}</td>
+          <td>{$member->prenom}</td>
+          <td><a href="member_controller.php?action=show&id={$member->id}">Détail</a></td>
+          <td><a href="member_controller.php?action=edit&id={$member->id}">Modifier</a></td>
+          <td><a href="member_controller.php?action=destroy&id={$member->id}">Supprimer</a></td>
+        </tr>
+        {/foreach}
+      </tbody>
+    </table>
+
+    <script src="../assets/javascripts/jquery-2.2.3.min.js"></script>
+    <script src="../assets/javascripts/application.js"></script>
+    <script src="../assets/javascripts/tablesaw.js"></script>
   </body>
 
 </html>
