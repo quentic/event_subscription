@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-	$("input.inscrire").click(function(){
+	$("td.inscription input").click(function(){
 		event_id = $(this).attr("data-event-id");
 		member_id = $(this).attr("data-member-id");
 

@@ -15,6 +15,8 @@
       </ul>
     </nav>
 
+    <h1>Les inscriptions aux stages</h1>
+    
     <form>
     <table data-tablesaw-sortable data-tablesaw-no-labels>
       <thead>
@@ -22,7 +24,7 @@
           <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
           <th data-tablesaw-sortable-col>Prénom</th>
           {foreach from=$events item=event}
-            <th>{$event->nom}</th>
+            <th data-tablesaw-sortable-col>{$event->nom}</th>
           {/foreach}
         </tr>
       </thead>
@@ -34,9 +36,9 @@
           {foreach from=$events item=event}
 
             {if in_array([$event->id, $member->id], $subscriptions)}
-              <td><input type="checkbox" class="inscrire" data-event-id="{$event->id}" data-member-id="{$member->id}" value="" checked="checked"></td>
+              <td class="inscription"><span class="inscrit_pour_tri">inscrit</span><input type="checkbox" data-event-id="{$event->id}" data-member-id="{$member->id}" value="" checked="checked"></td>
             {else}
-              <td><input type="checkbox" class="inscrire" data-event-id="{$event->id}" data-member-id="{$member->id}" value=""></td>
+              <td class="inscription"><span class="inscrit_pour_tri">non inscrit</span><input type="checkbox" data-event-id="{$event->id}" data-member-id="{$member->id}" value=""></td>
           {/if}
 
           {/foreach}
