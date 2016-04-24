@@ -20,6 +20,10 @@
 
       <form action="../controllers/event_controller.php?action=update&id={$event->id}" method="POST">
         <div>
+          <label>Masquer</label>
+          <input type="checkbox" name="masquer" value="1" {($event->masquer == '1') ? "checked='checked'" : ''} />
+        </div>
+        <div>
           <label>Nom</label>
           <input type="text" name="nom" value="{$event->nom}" />
         </div>

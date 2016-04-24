@@ -8,6 +8,7 @@ class Event{
 
     if (!empty($_POST)) {
       // Récupère les données du event/stage via le $_POST
+      $this->masquer = $_POST['masquer'];
       $this->nom = $_POST['nom' ];
       $this->periode = $_POST['periode'];
       
@@ -18,6 +19,7 @@ class Event{
       
       $member = mysql_fetch_object($result);
 
+      $this->masquer = $member->masquer;
       $this->nom = $member->nom;
       $this->periode = $member->periode;
     }
@@ -43,7 +45,7 @@ class Event{
     
   // met à jour un event/stage dans la base
   function update(){
-    $query = "UPDATE events SET nom='$this->nom', periode='$this->periode' WHERE id=$this->id";
+    $query = "UPDATE events SET masquer='$this->masquer', nom='$this->nom', periode='$this->periode' WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
     
