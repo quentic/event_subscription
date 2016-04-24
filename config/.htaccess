@@ -1,0 +1,6 @@
+
+# Rename this file to .htaccess if you want to allow large file uploads
+# Note that this file is not always taken into account, depending on your server configuration
+
+Order deny,allow
+deny from all
