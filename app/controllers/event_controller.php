@@ -82,9 +82,6 @@ $smarty->setTemplateDir('../../app/views/events');
           update($smarty);
           break;
 
-        case 'show':
-          break;
-
         case 'destroy':
           destroy($smarty);
           break;

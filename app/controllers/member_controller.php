@@ -82,9 +82,6 @@ $smarty->setTemplateDir('../../app/views/members');
           update($smarty);
           break;
 
-        case 'show':
-          break;
-
         case 'destroy':
           destroy($smarty);
           break;
