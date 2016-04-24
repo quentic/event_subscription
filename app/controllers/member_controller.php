@@ -11,33 +11,50 @@ $smarty->setTemplateDir('../../app/views/members');
 <?php
 
     function index($smarty){
-        $member = new Member($_POST);
+      $member = new Member();
 
-        $smarty->assign('members', $member->all());
-        $smarty->display('index.html');
+      $smarty->assign('members', $member->all());
+      $smarty->display('index.html');
     }
 
     function new_m($smarty){
       $smarty->display('new.html');
     }
 
-    // Enregistre un stagiaire / member
+    function edit($smarty){
+      $member = new Member();
+
+      $smarty->assign('member', $member);
+      $smarty->display('edit.html');
+    }
+
+    // Enregistre un member/stagiaire
     function save($smarty){
-        $event = new Member($_POST);
-        $event->save();
+        $member = new Member();
+        $member->save();
 
         // on ré-affiche la liste des stagiaires
-        $smarty->assign('members', $event->all());
+        $smarty->assign('members', $member->all());
+        $smarty->display('index.html');
+    }
+
+    // Enregistre les modifications d'un member/stagiaire
+    function update($smarty){
+        $member = new Member();
+        $member->update();
+
+        // on ré-affiche la liste des stagiaires
+        $smarty->assign('members', $member->all());
         $smarty->display('index.html');
     }
 
     // Supprime un member / stagiaire
     function destroy($smarty){
-        $event = new Member($_GET);
-        $event->destroy();
+        $member = new Member();
+        $member->destroy();
 
         // on ré-affiche la liste des stagiaires
-        $smarty->assign('members', $event->all());
+        $smarty->assign('members', $member->all());
         $smarty->display('index.html');
     }
 
@@ -58,9 +75,11 @@ $smarty->setTemplateDir('../../app/views/members');
           break;
 
         case 'edit':
+          edit($smarty);
           break;
 
         case 'update':
+          update($smarty);
           break;
 
         case 'show':

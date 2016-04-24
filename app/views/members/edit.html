@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Oxygène : Modifier un stagiaire</title>
+    <link rel="stylesheet" href="../assets/stylesheets/style.css" />
+  </head>
+
+  <body>
+     <nav>
+        <ul>
+          <li><a href="../controllers/event_controller.php">Les stages</a></li>
+          <li><a href="../controllers/member_controller.php">Les stagiaires</a></li>
+          <li><a href="../controllers/events_member_controller.php">Les inscriptions</a></li>
+        </ul>
+      </nav>
+
+      <h1>Modifier un stagiaire</h1>
+
+      <form action="../controllers/member_controller.php?action=update&id={$member->id}" method="POST">
+        <div>
+          <label>Nom</label>
+          <input type="text" name="nom" value="{$member->nom}" />
+        </div>
+        <div>
+          <label>Prénom</label>
+          <input type="text" name="prenom" value="{$member->prenom}" />
+        </div>
+        <input type="submit">
+      </form>
+  </body>
+
+</html>
