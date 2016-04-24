@@ -30,3 +30,9 @@ th, td{
 }
 .inscrit_pour_tri{display:none}
 td.inscription{text-align:center}
+
+label{
+  display:inline-block;
+  width:6em;
+  margin:0.5em 0;
+  }
