@@ -21,8 +21,8 @@ $smarty->setTemplateDir('../../app/views/members');
       $smarty->display('new.html');
     }
 
-    function edit($smarty){
-      $member = new Member();
+    function edit($smarty, $id){
+      $member = new Member($id);
 
       $smarty->assign('member', $member);
       $smarty->display('edit.html');
@@ -39,8 +39,8 @@ $smarty->setTemplateDir('../../app/views/members');
     }
 
     // Enregistre les modifications d'un member/stagiaire
-    function update($smarty){
-        $member = new Member();
+    function update($smarty, $id){
+        $member = new Member($id);
         $member->update();
 
         // on ré-affiche la liste des stagiaires
@@ -49,8 +49,8 @@ $smarty->setTemplateDir('../../app/views/members');
     }
 
     // Supprime un member / stagiaire
-    function destroy($smarty){
-        $member = new Member();
+    function destroy($smarty, $id){
+        $member = new Member($id);
         $member->destroy();
 
         // on ré-affiche la liste des stagiaires
@@ -58,37 +58,36 @@ $smarty->setTemplateDir('../../app/views/members');
         $smarty->display('index.html');
     }
 
-    if (!isset($_GET["action"]))
-      # Affiche la page index par défaut
-      index($smarty);
+    // récupère les paramètres action et id dans l'URL, s'ils existent
+    $action = isset($_GET['action']) ? $_GET['action'] : '';
+    $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-    else
-      // analyse l'action demandée
-      switch ($_GET['action']) {
-        case 'new':
-          # Affiche la page new.html
-          new_m($smarty);
-          break;
+    // analyse l'action demandée
+    switch ($_GET['action']) {
+      case 'new':
+        # Affiche la page new.html
+        new_m($smarty);
+        break;
 
-        case 'create':
-          save($smarty);
-          break;
+      case 'create':
+        save($smarty);
+        break;
 
-        case 'edit':
-          edit($smarty);
-          break;
+      case 'edit':
+        edit($smarty, $id);
+        break;
 
-        case 'update':
-          update($smarty);
-          break;
+      case 'update':
+        update($smarty, $id);
+        break;
 
-        case 'destroy':
-          destroy($smarty);
-          break;
+      case 'destroy':
+        destroy($smarty, $id);
+        break;
 
-        default:
-          # Affiche la page index par défaut
-          index($smarty);
-      }
+      default:
+        # Affiche la page index par défaut
+        index($smarty);
+    }
 
 ?>
