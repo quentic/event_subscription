@@ -41,7 +41,7 @@ require('../models/events_member.php');
       index($smarty);
       break;
 
-    case 'delete':
+    case 'destroy':
       # détruire l'association membre <=> stage
       $desinscription = new EventsMember();
       $desinscription->dissocier($event_id, $member_id);

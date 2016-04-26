@@ -10,7 +10,7 @@ $(document).ready(function() {
 			window.location.href = "events_member_controller.php?action=create&event_id=" + event_id + "&member_id=" + member_id ;
 		} else {
 			alert("désinscription enregistrée");
-			window.location.href = "events_member_controller.php?action=delete&event_id=" +event_id + "&member_id=" + member_id ;
+			window.location.href = "events_member_controller.php?action=destroy&event_id=" +event_id + "&member_id=" + member_id ;
 		}
 	})
 })
