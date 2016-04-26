@@ -34,14 +34,14 @@ require('../models/events_member.php');
   switch ($_GET['action']) {
     case 'create':
       # créer l'association membre <=> stage
-      $inscription = new EventsMember();
-      $inscription->associer($event_id, $member_id);
+      $inscription = new EventsMember($event_id, $member_id);
+      $inscription->associer();
       break;
 
     case 'destroy':
       # détruire l'association membre <=> stage
-      $desinscription = new EventsMember();
-      $desinscription->dissocier($event_id, $member_id);
+      $desinscription = new EventsMember($event_id, $member_id);
+      $desinscription->dissocier();
       break;
 
     default:
