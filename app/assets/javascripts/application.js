@@ -6,11 +6,26 @@ $(document).ready(function() {
 
 		inscription = $(this).is(':checked');
 		if (inscription) {
-			alert("inscription enregistrée");
-			window.location.href = "events_member_controller.php?action=create&event_id=" + event_id + "&member_id=" + member_id ;
+      // Inscription
+      $.post("events_member_controller.php?action=create",
+          {
+            event_id: event_id,
+            member_id: member_id
+          },
+          function(data, status){
+            alert('Inscription ' + (status=='success' ? '' : 'non ') + 'enregistrée');
+          });
+          
 		} else {
-			alert("désinscription enregistrée");
-			window.location.href = "events_member_controller.php?action=destroy&event_id=" +event_id + "&member_id=" + member_id ;
+      // Désinscription
+      $.post("events_member_controller.php?action=destroy",
+          {
+            event_id: event_id,
+            member_id: member_id
+          },
+          function(data, status){
+            alert('Désinscription ' + (status=='success' ? '' : 'non ') + 'enregistrée');
+          });	
 		}
 	})
 })
