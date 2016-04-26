@@ -9,7 +9,7 @@ $smarty->setTemplateDir('../../app/views/members');
 ?>
 
 <?php
-
+    // Liste les stagiaires
     function index($smarty){
       $member = new Member();
 
@@ -17,10 +17,12 @@ $smarty->setTemplateDir('../../app/views/members');
       $smarty->display('index.html');
     }
 
+    // Affiche le formulaire pour créer un nouveau stagiaire
     function new_m($smarty){
       $smarty->display('new.html');
     }
 
+    // Affiche le formulaire pour modifier un stagiaire
     function edit($smarty, $id){
       $member = new Member($id);
 
@@ -63,7 +65,7 @@ $smarty->setTemplateDir('../../app/views/members');
     $id = isset($_GET['id']) ? $_GET['id'] : '';
 
     // analyse l'action demandée
-    switch ($_GET['action']) {
+    switch ($action) {
       case 'new':
         # Affiche la page new.html
         new_m($smarty);

@@ -10,6 +10,7 @@ $smarty->setTemplateDir('../../app/views/events');
 
 <?php
 
+    // Liste les stages
     function index($smarty){
         $event = new Event();
 
@@ -17,10 +18,12 @@ $smarty->setTemplateDir('../../app/views/events');
         $smarty->display('index.html');
     }
 
+    // Affiche le formulaire pour créer un nouveau stage
     function new_m($smarty){
         $smarty->display('new.html');
     }
 
+    // Affiche le formulaire pour modifier un stage
     function edit($smarty, $id){
       $event = new Event($id);
 
