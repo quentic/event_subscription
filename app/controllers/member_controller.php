@@ -31,7 +31,7 @@ $smarty->setTemplateDir('../../app/views/members');
     }
 
     // Enregistre un member/stagiaire
-    function save($smarty){
+    function create($smarty){
         $member = new Member();
         $member->save();
 
@@ -72,7 +72,7 @@ $smarty->setTemplateDir('../../app/views/members');
         break;
 
       case 'create':
-        save($smarty);
+        create($smarty);
         break;
 
       case 'edit':

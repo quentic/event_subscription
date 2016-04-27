@@ -32,7 +32,7 @@ $smarty->setTemplateDir('../../app/views/events');
     }
 
     // Enregistre un event / stage
-    function save($smarty){
+    function create($smarty){
         $event = new Event();
         $event->save();
 
@@ -73,7 +73,7 @@ $smarty->setTemplateDir('../../app/views/events');
         break;
 
       case 'create':
-        save($smarty);
+        create($smarty);
         break;
 
       case 'edit':
