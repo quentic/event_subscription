@@ -2,18 +2,26 @@
 
 class EventsMember{
 
-  // constructeur sans paramètre
   public function __construct(){
-    if (!empty($_POST)) {
-      // Récupère les données d'inscription via $_POST (create, destroy)
-      $this->event_id = $_POST['event_id' ];
-      $this->member_id = $_POST['member_id'];
+    $get_arguments       = func_get_args();
+    $number_of_arguments = func_num_args();
 
-    } else {
-      $this->event_id = '';
-      $this->member_id = '';
-
+    if (method_exists($this, $method_name = '__construct'.$number_of_arguments)) {
+      call_user_func_array(array($this, $method_name), $get_arguments);
     }
+  }
+
+  // constructeur sans paramètre
+  public function __construct0(){
+    $this->event_id = '';
+    $this->member_id = '';
+  }
+
+  // constructeur avec 1 paramètre (un tableau de données)
+  public function __construct1($t_data){
+    // Récupère les données d'inscription via $_POST (create, destroy)
+    $this->event_id = $t_data['event_id'];
+    $this->member_id = $t_data['member_id'];
   }
 
   // Sélectionner toutes les inscriptions

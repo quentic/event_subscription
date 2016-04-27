@@ -28,20 +28,27 @@ require('../models/events_member.php');
     $smarty->display('index.html');
   }
 
-  $event_id = $_POST['event_id'];
-  $member_id = $_POST['member_id'];
+  function create(){
+    # créer l'association membre <=> stage
+    $inscription = new EventsMember($_POST);
+    $inscription->associer();
+  }
 
+  function destroy(){
+    # détruire l'association membre <=> stage
+    $desinscription = new EventsMember($_POST);
+    $desinscription->dissocier();
+  }
+
+
+  // analyse l'action demandée
   switch ($_GET['action']) {
     case 'create':
-      # créer l'association membre <=> stage
-      $inscription = new EventsMember($event_id, $member_id);
-      $inscription->associer();
+      create();
       break;
 
     case 'destroy':
-      # détruire l'association membre <=> stage
-      $desinscription = new EventsMember($event_id, $member_id);
-      $desinscription->dissocier();
+      destroy();
       break;
 
     default:
