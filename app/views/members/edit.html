@@ -19,7 +19,7 @@
 
     <h1>Modifier un stagiaire</h1>
 
-    <form action="../controllers/member_controller.php?action=update&id={$member->id}" method="POST">
+    <form action="../controllers/member_controller.php?action=update&id={$member->id}" method="post">
       <div>
         <label>Masquer</label>
         <input type="checkbox" name="masquer" value="1" {($member->masquer == '1') ? "checked='checked'" : ''} />

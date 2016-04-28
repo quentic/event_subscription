@@ -34,17 +34,41 @@ require('../models/events_member.php');
     $inscription->associer();
   }
 
+  function edit($smarty, $event_id, $member_id){
+    echo($_GET['member_id']);
+    $events_member = new EventsMember($_GET);
+
+    $smarty->assign('events_member', $events_member);
+    $smarty->display('edit.html');
+  }
+
+  // Enregistre les modifications d'une inscription
+  function update($smarty){
+      $member = new EventsMember($_GET);
+      $member->update();
+
+      // on ré-affiche la liste des stagiaires
+      index($smarty);
+  }
+
   function destroy(){
     # détruire l'association membre <=> stage
     $desinscription = new EventsMember($_POST);
     $desinscription->dissocier();
   }
 
-
   // analyse l'action demandée
   switch ($_GET['action']) {
     case 'create':
       create();
+      break;
+
+    case 'edit':
+      edit($smarty, $event_id, $member_id);
+      break;
+
+    case 'update':
+      update($smarty);
       break;
 
     case 'destroy':

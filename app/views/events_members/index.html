@@ -36,10 +36,19 @@
           {foreach from=$events item=event}
 
               {if in_array([$event->id, $member->id], $subscriptions)}
-                <td class="inscription"><span class="inscrit_pour_tri">inscrit</span><input type="checkbox" data-event-id="{$event->id}" data-member-id="{$member->id}" value="" checked="checked"></td>
+                <td class="inscription">
+                  <span class="inscrit_pour_tri">inscrit</span>
+                  <input type="checkbox" data-event-id="{$event->id}" data-member-id="{$member->id}" value="" checked="checked">
+                  <a href="events_member_controller.php?action=edit&member_id={$member->id}&event_id={$event->id}" class="edit"></a>
+                </td>
               {else}
-                <td class="inscription"><span class="inscrit_pour_tri">non inscrit</span><input type="checkbox" data-event-id="{$event->id}" data-member-id="{$member->id}" value=""></td>
+                <td class="inscription">
+                  <span class="inscrit_pour_tri">non inscrit</span>
+                  <input type="checkbox" data-event-id="{$event->id}" data-member-id="{$member->id}" value="">
+                </td>
               {/if}
+
+
 
           {/foreach}
         </tr>

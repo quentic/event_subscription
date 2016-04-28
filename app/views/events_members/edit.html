@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Oxygène : Modifier un stagiaire</title>
+    <link rel="stylesheet" href="../assets/stylesheets/style.css" />
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <li><a href="../controllers/event_controller.php">Les stages</a></li>
+        <li><a href="../controllers/member_controller.php">Les stagiaires</a></li>
+        <li><a href="../controllers/events_member_controller.php">Les inscriptions</a></li>
+      </ul>
+    </nav>
+
+    <h1>Modifier une inscription</h1>
+
+    <form action="../controllers/events_member_controller.php?action=update&id={$events_member->id}" method="post">
+      <div>
+        <label>moniteur</label>
+        <input type="checkbox" name="moniteur" value="1" {($events_member->moniteur == '1') ? "checked='checked'" : ''} />
+      </div>
+      <div>
+        <label>piéton</label>
+        <input type="checkbox" name="pieton" value="1" {($events_member->pieton == '1') ? "checked='checked'" : ''} />
+      </div>
+      <div>
+        <label>matériel</label>
+        <input type="text" name="materiel" value="{$events_member->materiel}" />
+      </div>
+
+      <input type="submit">
+    </form>
+
+    <script src="../assets/javascripts/application.js"></script>
+  </body>
+
+</html>
