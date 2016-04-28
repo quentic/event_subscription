@@ -5,63 +5,69 @@
     <meta charset="utf-8" />
     <title>Oxygène : Modifier un stage</title>
     <link rel="stylesheet" href="../assets/stylesheets/style.css" />
+    <link rel="stylesheet" href="../assets/stylesheets/jquery-ui-1.11.4.custom/jquery-ui.css" />
   </head>
 
   <body>
-     <nav>
-        <ul>
-          <li><a href="../controllers/event_controller.php">Les stages</a></li>
-          <li><a href="../controllers/member_controller.php">Les stagiaires</a></li>
-          <li><a href="../controllers/events_member_controller.php">Les inscriptions</a></li>
-        </ul>
-      </nav>
+    <nav>
+      <ul>
+        <li><a href="../controllers/event_controller.php">Les stages</a></li>
+        <li><a href="../controllers/member_controller.php">Les stagiaires</a></li>
+        <li><a href="../controllers/events_member_controller.php">Les inscriptions</a></li>
+      </ul>
+    </nav>
 
-      <h1>Modifier un stage</h1>
+    <h1>Modifier un stage</h1>
 
-      <form action="../controllers/event_controller.php?action=update&id={$event->id}" method="POST">
-        <div>
-          <label>Masquer</label>
-          <input type="checkbox" name="masquer" value="1" {($event->masquer == '1') ? "checked='checked'" : ''} />
-        </div>
-        <div>
-          <label>Nom</label>
-          <input type="text" name="lieu" value="{$event->lieu}" />
-        </div>
-        <div>
-          <label>Début du stage</label>
-          <input type="text" name="datedebut" value="{$event->datedebut}" />
-        </div>
-        <div>
-          <label>Fin du stage</label>
-          <input type="text" name="datefin" value="{$event->datefin}" />
-        </div>
-        <div>
-          <label>Nombre de places</label>
-          <input type="text" name="placedispo" value="{$event->placedispo}" />
-        </div>
-        <div>
-          <label>Titre</label>
-          <input type="text" name="titre" value="{$event->titre}" />
-        </div>
-        <div>
-          <label>Descriptif</label>
-          <textarea name="descriptif" cols="80">{$event->descriptif}</textarea>
-        </div>
-        <div>
-          <label>Observations</label>
-          <textarea name="observation" cols="80">{$event->observation}</textarea>
-        </div>
-        <div>
-          <label>Compte-rendu</label>
-          <textarea name="cpterendu" cols="80">{$event->cpterendu}</textarea>
-        </div>
-        <div>
-          <label>Image</label>
-          <input type="text" name="image" value="{$event->image}" />
-        </div>
+    <form action="../controllers/event_controller.php?action=update&id={$event->id}" method="POST">
+      <div>
+        <label>Masquer</label>
+        <input type="checkbox" name="masquer" value="1" {($event->masquer == '1') ? "checked='checked'" : ''} />
+      </div>
+      <div>
+        <label>Nom</label>
+        <input type="text" name="lieu" value="{$event->lieu}" />
+      </div>
+      <div>
+        <label>Début du stage</label>
+        <input id="datedebut" type="date" name="datedebut" value="{$event->datedebut}" />
+      </div>
+      <div>
+        <label>Fin du stage</label>
+        <input id="datefin" type="date" name="datefin" value="{$event->datefin}" />
+      </div>
+      <div>
+        <label>Nombre de places</label>
+        <input type="text" name="placedispo" value="{$event->placedispo}" />
+      </div>
+      <div>
+        <label>Titre</label>
+        <input type="text" name="titre" value="{$event->titre}" />
+      </div>
+      <div>
+        <label>Descriptif</label>
+        <textarea name="descriptif" cols="80">{$event->descriptif}</textarea>
+      </div>
+      <div>
+        <label>Observations</label>
+        <textarea name="observation" cols="80">{$event->observation}</textarea>
+      </div>
+      <div>
+        <label>Compte-rendu</label>
+        <textarea name="cpterendu" cols="80">{$event->cpterendu}</textarea>
+      </div>
+      <div>
+        <label>Image</label>
+        <input type="text" name="image" value="{$event->image}" />
+      </div>
 
-        <input type="submit">
-      </form>
+      <input type="submit">
+    </form>
+
+    <script src="../assets/javascripts/jquery-2.2.3.min.js"></script>
+    <script src="../assets/javascripts/jquery-ui-1.11.4.custom/jquery.ui.datepicker-fr.min.js"></script>
+    <script src="../assets/javascripts/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+    <script src="../assets/javascripts/application.js"></script>
   </body>
 
 </html>
