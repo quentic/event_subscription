@@ -33,6 +33,9 @@ td.inscription{text-align:center}
 
 label{
   display:inline-block;
-  width:6em;
+  width:10em;
   margin:0.5em 0;
   }
+label:first-letter{
+  text-transform:capitalize;
+}

@@ -21,12 +21,41 @@
       <form action="../controllers/event_controller.php?action=create" method="POST">
         <div>
           <label>Nom</label>
-          <input type="text" name="nom" />
+          <input type="text" name="lieu" value="{$event->lieu}" />
         </div>
         <div>
-          <label>Période</label>
-          <input type="text" name="periode" />
+          <label>Début du stage</label>
+          <input type="text" name="datedebut" value="{$event->datedebut}" />
         </div>
+        <div>
+          <label>Fin du stage</label>
+          <input type="text" name="datefin" value="{$event->datefin}" />
+        </div>
+        <div>
+          <label>Nombre de places</label>
+          <input type="text" name="placedispo" value="{$event->placedispo}" />
+        </div>
+        <div>
+          <label>Titre</label>
+          <input type="text" name="titre" value="{$event->titre}" />
+        </div>
+        <div>
+          <label>Descriptif</label>
+          <textarea name="descriptif" cols="80">{$event->descriptif}</textarea>
+        </div>
+        <div>
+          <label>Observations</label>
+          <textarea name="observation" cols="80">{$event->observation}</textarea>
+        </div>
+        <div>
+          <label>Compte-rendu</label>
+          <textarea name="cpterendu" cols="80">{$event->cpterendu}</textarea>
+        </div>
+        <div>
+          <label>Image</label>
+          <input type="text" name="image" value="{$event->image}" />
+        </div>
+
         <input type="submit">
       </form>
   </body>

@@ -15,11 +15,11 @@ require('../models/events_member.php');
   function index($smarty){
     // Récupérer les stages
     $event = new Event();
-    $smarty->assign('events',$event->all());
+    $smarty->assign('events',$event->actifs());
 
     // Récupérer les stagiaires
     $member = new Member();
-    $smarty->assign('members',$member->all());
+    $smarty->assign('members',$member->actifs());
 
     // Récupérer les inscriptions
     $events_member = new EventsMember();

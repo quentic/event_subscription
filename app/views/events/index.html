@@ -22,7 +22,8 @@
       <thead>
         <tr>
           <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
-          <th data-tablesaw-sortable-col>Période</th>
+          <th data-tablesaw-sortable-col>Du...</th>
+          <th>au...</th>
           <th></th>
           <th></th>
           <th></th>
@@ -32,8 +33,9 @@
       <tbody>
         {foreach from=$events item=event}
         <tr>
-            <td>{$event->nom}</td>
-            <td>{$event->periode}</td>
+            <td>{$event->lieu}</td>
+            <td>{$event->datedebut}</td>
+            <td>{$event->datefin}</td>
             <td><a href="event_controller.php?action=edit&id={$event->id}">Modifier</a></td>
             <td><a href="event_controller.php?action=destroy&id={$event->id}">Supprimer</a></td>
         </tr>

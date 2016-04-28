@@ -20,6 +20,10 @@
 
       <form action="../controllers/member_controller.php?action=update&id={$member->id}" method="POST">
         <div>
+          <label>Masquer</label>
+          <input type="checkbox" name="masquer" value="1" {($member->masquer == '1') ? "checked='checked'" : ''} />
+        </div>
+        <div>
           <label>Nom</label>
           <input type="text" name="nom" value="{$member->nom}" />
         </div>
@@ -27,6 +31,63 @@
           <label>Prénom</label>
           <input type="text" name="prenom" value="{$member->prenom}" />
         </div>
+        <div>
+          <label>date de naissance</label>
+          <input type="text" name="datenaissance" value="{$member->datenaissance}" />
+        </div>
+        <div>
+          <label>adresse</label>
+          <input type="text" name="adresse" value="{$member->adresse}" />
+        </div>
+        <div>
+          <label>CP</label>
+          <input type="text" name="cp" value="{$member->cp}" />
+        </div>
+        <div>
+          <label>ville</label>
+          <input type="text" name="ville" value="{$member->ville}" />
+        </div>
+        <div>
+          <label>email</label>
+          <input type="text" name="email" value="{$member->email}" />
+        </div>
+        <div>
+          <label>tel fixe</label>
+          <input type="text" name="telfixe" value="{$member->telfixe}" />
+        </div>
+        <div>
+          <label>tel portable</label>
+          <input type="text" name="telportable" value="{$member->telportable}" />
+        </div>
+        <div>
+          <label>niveau</label>
+          <input type="text" name="niveau" value="{$member->niveau}" />
+        </div>
+        <div>
+          <label>photo</label>
+          <input type="text" name="photo" value="{$member->photo}" />
+        </div>
+        <div>
+          <label>observation</label>
+          <input type="text" name="observation" value="{$member->observation}" />
+        </div>
+        <div>
+          <label>date adhésion</label>
+          <input type="text" name="date_adh" value="{$member->date_adh}" />
+        </div>
+        <div>
+          <label>mono</label>
+          <input type="text" name="mono" value="{$member->mono}" />
+        </div>
+        <div>
+          <label>diplôme</label>
+          <input type="text" name="diplome" value="{$member->diplome}" />
+        </div>
+        <div>
+          <label>photo2</label>
+          <input type="text" name="photo2" value="{$member->photo2}" />
+        </div>
+
         <input type="submit">
       </form>
   </body>
