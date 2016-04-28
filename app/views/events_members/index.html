@@ -24,19 +24,16 @@
           <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
           <th data-tablesaw-sortable-col>Prénom</th>
           {foreach from=$events item=event}
-            {if (!$event->masquer)}
-              <th data-tablesaw-sortable-col>{$event->nom}</th>
-            {/if}
+            <th data-tablesaw-sortable-col>{$event->lieu}</th>
           {/foreach}
         </tr>
       </thead>
       <tbody>
         {foreach from=$members item=member}
         <tr>
-          <td>{$member->nom}</td>
+          <td><a href="../controllers/member_controller.php?action=edit&id={$member->id}">{$member->nom}</a></td>
           <td>{$member->prenom}</td>
           {foreach from=$events item=event}
-            {if (!$event->masquer)}
 
               {if in_array([$event->id, $member->id], $subscriptions)}
                 <td class="inscription"><span class="inscrit_pour_tri">inscrit</span><input type="checkbox" data-event-id="{$event->id}" data-member-id="{$member->id}" value="" checked="checked"></td>
@@ -44,7 +41,6 @@
                 <td class="inscription"><span class="inscrit_pour_tri">non inscrit</span><input type="checkbox" data-event-id="{$event->id}" data-member-id="{$member->id}" value=""></td>
               {/if}
 
-            {/if}
           {/foreach}
         </tr>
         {/foreach}

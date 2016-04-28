@@ -33,6 +33,7 @@ class Member{
 
     if (!empty($_POST)) {
       // Récupère les données du member/stagiaire via le $_POST
+      $this->masquer = $_POST['masquer'];
       $this->nom = $_POST['nom' ];
       $this->prenom = $_POST['prenom'];
 
@@ -43,6 +44,7 @@ class Member{
 
       $member = mysql_fetch_object($result);
 
+      $this->masquer = $member->masquer;
       $this->nom = $member->nom;
       $this->prenom = $member->prenom;
     }
@@ -50,7 +52,19 @@ class Member{
 
   // Sélectionner tous les stages
   function all() {
-    $query = 'SELECT * FROM members';
+    $query = 'SELECT * FROM members ORDER BY nom, prenom ASC';;
+    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+    $t_result = [];
+
+    while ($line = mysql_fetch_object($result)) {
+      $t_result[] = $line;
+    }
+    return $t_result;
+  }
+
+  // Sélectionner tous les stages
+  function actifs() {
+    $query = 'SELECT * FROM members WHERE NOT masquer ORDER BY nom, prenom ASC';
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
     $t_result = [];
 
@@ -68,7 +82,7 @@ class Member{
 
   // met à jour un membre/stagiaire dans la base
   function update(){
-    $query = "UPDATE members SET nom='$this->nom', prenom='$this->prenom' WHERE id=$this->id";
+    $query = "UPDATE members SET masquer='$this->masquer', nom='$this->nom', prenom='$this->prenom' WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
