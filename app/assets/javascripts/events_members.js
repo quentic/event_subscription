@@ -1,11 +1,12 @@
 
 $(document).ready(function() {
 	$("td.inscription input").click(function(){
-		event_id = $(this).attr("data-event-id");
-		member_id = $(this).attr("data-member-id");
 
 		inscription = $(this).is(':checked');
 		if (inscription) {
+      event_id = $(this).attr("data-event_id");
+      member_id = $(this).attr("data-member_id");
+
       // Inscription
       $.post("events_member_controller.php?action=create",
           {
@@ -17,11 +18,12 @@ $(document).ready(function() {
           });
 
 		} else {
+      id = $(this).attr("id");
+
       // Désinscription
       $.post("events_member_controller.php?action=destroy",
           {
-            event_id: event_id,
-            member_id: member_id
+            id: id
           },
           function(data, status){
             alert('Désinscription ' + (status=='success' ? '' : 'non ') + 'enregistrée');

@@ -28,29 +28,29 @@
           {/foreach}
         </tr>
       </thead>
+      
       <tbody>
-        {foreach from=$members item=member}
+        {foreach from=$subscriptions item=subscription}
         <tr>
-          <td><a href="../controllers/member_controller.php?action=edit&id={$member->id}">{$member->nom}</a></td>
-          <td>{$member->prenom}</td>
-          {foreach from=$events item=event}
+          <td><a href="../controllers/member_controller.php?action=edit&id={$subscription['member_id']}">{$subscription['nom']}</a></td>
+          <td>{$subscription['prenom']}</td>
+          {for $i=0 to count($events)-1}
+            {if ($subscription[$i] > 0)}
+              <!-- le membre est inscrit à ce stage -->
+              <td class="inscription">
+                <span class="inscrit_pour_tri">inscrit</span>
+                <input type="checkbox" id="{$subscription[$i]}" value="" checked="checked">
+                <a href="events_member_controller.php?action=edit&id={$subscription[$i]}" class="edit"></a>
+              </td>
+            {else}
+              <!-- le membre n'est pas inscrit à ce stage -->
+              <td class="inscription">
+                <span class="inscrit_pour_tri">non inscrit</span>
+                <input type="checkbox" data-member_id="{$subscription['member_id']}" data-event_id="{$events[$i]->id}" value="">
+              </td>
+            {/if}
 
-              {if in_array([$event->id, $member->id], $subscriptions)}
-                <td class="inscription">
-                  <span class="inscrit_pour_tri">inscrit</span>
-                  <input type="checkbox" data-event-id="{$event->id}" data-member-id="{$member->id}" value="" checked="checked">
-                  <a href="events_member_controller.php?action=edit&member_id={$member->id}&event_id={$event->id}" class="edit"></a>
-                </td>
-              {else}
-                <td class="inscription">
-                  <span class="inscrit_pour_tri">non inscrit</span>
-                  <input type="checkbox" data-event-id="{$event->id}" data-member-id="{$member->id}" value="">
-                </td>
-              {/if}
-
-
-
-          {/foreach}
+          {/for}
         </tr>
         {/foreach}
       </tbody>
@@ -58,6 +58,8 @@
     </form>
 
     <script src="../assets/javascripts/jquery-2.2.3.min.js"></script>
+    <script src="../assets/javascripts/jquery-ui-1.11.4.custom/jquery.ui.datepicker-fr.min.js"></script>
+    <script src="../assets/javascripts/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
     <script src="../assets/javascripts/events_members.js"></script>
     <script src="../assets/javascripts/tablesaw.js"></script>
     <script src="../assets/javascripts/application.js"></script>

@@ -17,25 +17,19 @@ require('../models/events_member.php');
     $event = new Event();
     $smarty->assign('events',$event->actifs());
 
-    // Récupérer les stagiaires
-    $member = new Member();
-    $smarty->assign('members',$member->actifs());
-
     // Récupérer les inscriptions
     $events_member = new EventsMember();
-    $smarty->assign('subscriptions', $events_member->all());
-
+    $smarty->assign('subscriptions', $events_member->all($event->actifs()));
     $smarty->display('index.html');
   }
 
   function create(){
     # créer l'association membre <=> stage
-    $inscription = new EventsMember($_POST);
+    $inscription = new EventsMember($_POST['event_id'], $_POST['member_id']);
     $inscription->associer();
   }
 
-  function edit($smarty, $event_id, $member_id){
-    echo($_GET['member_id']);
+  function edit($smarty){
     $events_member = new EventsMember($_GET);
 
     $smarty->assign('events_member', $events_member);
@@ -64,7 +58,7 @@ require('../models/events_member.php');
       break;
 
     case 'edit':
-      edit($smarty, $event_id, $member_id);
+      edit($smarty);
       break;
 
     case 'update':
