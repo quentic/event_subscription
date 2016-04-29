@@ -42,34 +42,33 @@ class EventsMember{
     }
 
   }
-  
+
   // constructeur avec 2 paramètres (event_id et member_id)
   public function __construct2($event_id, $member_id){
 
     // Récupère les données du stage et du membre à associer
     $this->event_id = $event_id;
     $this->member_id = $member_id;
-      
+
   }
 
   // Sélectionner toutes les inscriptions
   function all($events_actifs) {
     $subscriptions = [];
     $select = [];
-    
+
     // Construction de la requête toutes les inscription des membres actifs aux stages actifs
     $query = 'SELECT ';
     foreach ($events_actifs as $event) {
       $select[] =  "MAX(IF(event_id=$event->id, events_members.id, 0)) AS s_$event->id";
       }
     $query .= join(', ', $select);
-    $query .= ', member_id, members.nom, members.prenom';
-    $query .= ' FROM `events_members`
-                JOIN events ON events_members.event_id = events.id AND NOT events.masquer
-                JOIN members ON events_members.member_id = members.id AND NOT members.masquer
-                GROUP BY member_id
-                ORDER BY member_id';
-
+    $query .= ', member_id, active_members.nom, active_members.prenom';
+    $query .= ' FROM active_members
+                LEFT JOIN events_members ON events_members.member_id = active_members.id
+                LEFT JOIN active_events ON events_members.event_id = active_events.id
+                GROUP BY active_members.id
+                ORDER BY active_members.nom';
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
 
     // on ne veut que les valeurs numériques dans le tableau (pas les clés)
