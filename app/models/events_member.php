@@ -31,7 +31,10 @@ class EventsMember{
 
     } else {
       // Récupère les données de l'inscription via son id
-      $query = "SELECT * FROM events_members WHERE id=$this->id";
+      $query = "SELECT materiel, moniteur, pieton, nom, prenom, lieu FROM events_members
+                INNER JOIN events ON events_members.event_id = events.id
+                INNER JOIN members ON events_members.member_id = members.id
+                WHERE events_members.id=$this->id";
       $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
 
       $events_member = mysql_fetch_object($result);
@@ -39,6 +42,12 @@ class EventsMember{
       $this->moniteur = $events_member->moniteur;
       $this->pieton = $events_member->pieton;
       $this->materiel = $events_member->materiel;
+
+      // bonus : pour l'affichage de la page edit
+      $this->nom = $events_member->nom;
+      $this->prenom = $events_member->prenom;
+      $this->lieu = $events_member->lieu;
+
     }
 
   }
