@@ -89,7 +89,6 @@ class EventsMember{
   }
 
   function associer() {
-    echo("INSERT INTO events_members (event_id, member_id) VALUE ($this->event_id, $this->member_id)");
     $result = mysql_query("INSERT INTO events_members (event_id, member_id) VALUE ($this->event_id, $this->member_id)");
     }
 
