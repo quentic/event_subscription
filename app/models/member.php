@@ -59,7 +59,7 @@ class Member{
 
     if (!empty($_POST)) {
       // Récupère les données du member/stagiaire via le $_POST
-      $this->masquer = $_POST['masquer'];
+      $this->masque = $_POST['masque'];
       $this->nom = $_POST['nom' ];
       $this->prenom = $_POST['prenom'];
       $this->datenaissance = $_POST['datenaissance'];
@@ -83,7 +83,7 @@ class Member{
 
       $member = mysql_fetch_object($result);
 
-      $this->masquer = $member->masquer;
+      $this->masque = $member->masque;
       $this->nom = $member->nom;
       $this->prenom = $member->prenom;
       $this->datenaissance = $member->datenaissance;
@@ -116,7 +116,7 @@ class Member{
 
   // Sélectionner tous les stages
   function actifs() {
-    $query = 'SELECT * FROM members WHERE NOT masquer ORDER BY nom, prenom ASC';
+    $query = 'SELECT * FROM members WHERE NOT masque ORDER BY nom, prenom ASC';
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
     $t_result = [];
 
@@ -129,9 +129,9 @@ class Member{
   // enregistrer un nouveau membre/stagiaire dans la base
   function save(){
     $query = "INSERT INTO members (nom, prenom, datenaissance, adresse, cp, ville, email, telfixe, telportable, photo, observation, date_adh, mono, diplome, photo2)
-              VALUES ('$this->nom', '$this->prenom', '$this->datenaissance', 
+              VALUES ('$this->nom', '$this->prenom', '$this->datenaissance',
                       '$this->adresse', '$this->cp', '$this->ville',
-                      '$this->email', '$this->telfixe', '$this->telportable', 
+                      '$this->email', '$this->telfixe', '$this->telportable',
                       '$this->photo', '$this->observation', '$this->date_adh',
                       '$this->mono', '$this->diplome', '$this->photo2')";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
@@ -139,12 +139,12 @@ class Member{
 
   // met à jour un membre/stagiaire dans la base
   function update(){
-    $query = "UPDATE members 
-              SET masquer='$this->masquer', nom='$this->nom', prenom='$this->prenom', datenaissance='$this->datenaissance', 
-              adresse='$this->adresse', cp='$this->cp', ville='$this->ville', 
-              email='$this->email', telfixe='$this->telfixe', telportable='$this->telportable', 
-              photo='$this->photo', observation='$this->observation', date_adh='$this->date_adh', 
-              mono='$this->mono', diplome='$this->diplome', photo2='$this->photo2' 
+    $query = "UPDATE members
+              SET masque='$this->masque', nom='$this->nom', prenom='$this->prenom', datenaissance='$this->datenaissance',
+              adresse='$this->adresse', cp='$this->cp', ville='$this->ville',
+              email='$this->email', telfixe='$this->telfixe', telportable='$this->telportable',
+              photo='$this->photo', observation='$this->observation', date_adh='$this->date_adh',
+              mono='$this->mono', diplome='$this->diplome', photo2='$this->photo2'
               WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }

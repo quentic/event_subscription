@@ -19,10 +19,10 @@
 
     <h1>Modifier un stage</h1>
 
-    <form action="../controllers/event_controller.php?action=update&id={$event->id}" method="POST">
+    <form action="../controllers/event_controller.php?action=update&id={$event->id}" method="post">
       <div>
         <label>Masquer</label>
-        <input type="checkbox" name="masquer" value="1" {($event->masquer == '1') ? "checked='checked'" : ''} />
+        <input type="checkbox" name="masque" value="1" {($event->masque == '1') ? "checked='checked'" : ''} />
       </div>
       <div>
         <label>Nom</label>

@@ -46,7 +46,7 @@ class Event{
 
     if (!empty($_POST)) {
       // Récupère les données du event/stage via $_POST (update)
-      $this->masquer = $_POST['masquer'];
+      $this->masque = $_POST['masque'];
       $this->lieu = $_POST['lieu' ];
       $this->datedebut = $_POST['datedebut'];
       $this->datefin = $_POST['datefin'];
@@ -64,7 +64,7 @@ class Event{
 
       $member = mysql_fetch_object($result);
 
-      $this->masquer = $member->masquer;
+      $this->masque = $member->masque;
       $this->lieu = $member->lieu;
       $this->datedebut = $member->datedebut;
       $this->datefin = $member->datefin;
@@ -91,7 +91,7 @@ class Event{
 
    // Sélectionner tous les stages actifs
   function actifs() {
-    $query = 'SELECT * FROM events WHERE NOT masquer ORDER BY id DESC';
+    $query = 'SELECT * FROM events WHERE NOT masque ORDER BY id DESC';
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
     $t_result = [];
 
@@ -103,18 +103,18 @@ class Event{
 
    // enregistrer un nouveau event/stage dans la base
   function save(){
-    $query = "INSERT INTO events (lieu, datedebut, datefin, placedispo, observation, titre, descriptif, cpterendu, image) 
+    $query = "INSERT INTO events (lieu, datedebut, datefin, placedispo, observation, titre, descriptif, cpterendu, image)
               VALUES ('$this->lieu', '$this->datedebut', '$this->datefin',
-              '$this->placedispo', '$this->observation', '$this->titre', '$this->descriptif', 
+              '$this->placedispo', '$this->observation', '$this->titre', '$this->descriptif',
               '$this->cpterendu', '$this->image')";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
 
   // met à jour un event/stage dans la base
   function update(){
-    $query = "UPDATE events 
-              SET masquer='$this->masquer', lieu='$this->lieu', datedebut='$this->datedebut', datefin='$this->datefin',
-              placedispo='$this->placedispo', observation='$this->observation', titre='$this->titre', descriptif='$this->descriptif', 
+    $query = "UPDATE events
+              SET masque='$this->masque', lieu='$this->lieu', datedebut='$this->datedebut', datefin='$this->datefin',
+              placedispo='$this->placedispo', observation='$this->observation', titre='$this->titre', descriptif='$this->descriptif',
               cpterendu='$this->cpterendu', image='$this->image'
               WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
