@@ -41,8 +41,8 @@ require('../models/events_member.php');
       $member = new EventsMember($_GET);
       $member->update();
 
-      // on ré-affiche la liste des stagiaires
-      index($smarty);
+      // on ré-affiche la liste des inscriptions
+      header( "Location: events_member_controller.php" );
   }
 
   function destroy(){
