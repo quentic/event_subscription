@@ -1,6 +1,6 @@
 <?php
-// un stage auquel peuvent s'inscrire des stagiaires
-// an event which members can subscribe to
+# un stage auquel peuvent s'inscrire des stagiaires
+# an event which members can subscribe to
 class Event{
 
   public function __construct(){
@@ -12,10 +12,10 @@ class Event{
     }
   }
 
-  // constructeur sans paramètre
+  # constructeur sans paramètre
   public function __construct0(){
     if (!empty($_POST)) {
-      // Récupère les données du event/stage via $_POST (new)
+      # Récupère les données du event/stage via $_POST (new)
       $this->lieu = $_POST['lieu' ];
       $this->datedebut = $_POST['datedebut'];
       $this->datefin = $_POST['datefin'];
@@ -40,12 +40,12 @@ class Event{
     }
   }
 
-  // constructeur avec 1 paramètre
+  # constructeur avec 1 paramètre
   public function __construct1($id){
     $this->id = $id;
 
     if (!empty($_POST)) {
-      // Récupère les données du event/stage via $_POST (update)
+      # Récupère les données du event/stage via $_POST (update)
       $this->masque = $_POST['masque'];
       $this->lieu = $_POST['lieu' ];
       $this->datedebut = $_POST['datedebut'];
@@ -58,7 +58,7 @@ class Event{
       $this->image = $_POST['image'];
 
     } else {
-      // Récupère les données du event/stage via son id
+      # Récupère les données du event/stage via son id
       $query = "SELECT * FROM events WHERE id=$id";
       $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
 
@@ -77,7 +77,7 @@ class Event{
     }
   }
 
-   // Sélectionner tous les stages
+  # Sélectionner tous les stages
   function all() {
     $query = 'SELECT * FROM events ORDER BY id DESC';
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
@@ -89,9 +89,9 @@ class Event{
     return $t_result;
   }
 
-   // Sélectionner tous les stages actifs
+  # Sélectionner tous les stages actifs
   function actifs() {
-    $query = 'SELECT * FROM events WHERE NOT masque ORDER BY id DESC';
+    $query = 'SELECT * FROM active_events ORDER BY id DESC';
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
     $t_result = [];
 
@@ -101,7 +101,7 @@ class Event{
     return $t_result;
   }
 
-   // enregistrer un nouveau event/stage dans la base
+  # enregistrer un nouveau event/stage dans la base
   function save(){
     $query = "INSERT INTO events (lieu, datedebut, datefin, placedispo, observation, titre, descriptif, cpterendu, image)
               VALUES ('$this->lieu', '$this->datedebut', '$this->datefin',
@@ -110,7 +110,7 @@ class Event{
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
 
-  // met à jour un event/stage dans la base
+  # met à jour un event/stage dans la base
   function update(){
     $query = "UPDATE events
               SET masque='$this->masque', lieu='$this->lieu', datedebut='$this->datedebut', datefin='$this->datefin',
@@ -120,7 +120,7 @@ class Event{
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
 
-   // supprimer un event/stage de la base
+   # supprimer un event/stage de la base
   function destroy(){
     $query = "DELETE FROM events WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);

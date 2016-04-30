@@ -1,7 +1,7 @@
 <?php
 
-// un stagiaire qui peut s'inscrire à un stage
-// a member that can subscribe to an event
+# un stagiaire qui peut s'inscrire à un stage
+# a member that can subscribe to an event
 class Member{
 
   public function __construct(){
@@ -13,10 +13,10 @@ class Member{
     }
   }
 
-  // constructeur sans paramètre
+  # constructeur sans paramètre
   public function __construct0(){
     if (!empty($_POST)) {
-      // Récupère les données du event/stage via $_POST (new)
+      # Récupère les données du event/stage via $_POST (new)
       $this->nom = $_POST['nom' ];
       $this->prenom = $_POST['prenom'];
       $this->datenaissance = $_POST['datenaissance'];
@@ -53,12 +53,12 @@ class Member{
     }
   }
 
-  // constructeur avec 1 paramètre
+  # constructeur avec 1 paramètre
   public function __construct1($id){
     $this->id = $_GET['id'];
 
     if (!empty($_POST)) {
-      // Récupère les données du member/stagiaire via le $_POST
+      # Récupère les données du member/stagiaire via le $_POST
       $this->masque = $_POST['masque'];
       $this->nom = $_POST['nom' ];
       $this->prenom = $_POST['prenom'];
@@ -77,7 +77,7 @@ class Member{
       $this->photo2 = $_POST['photo2'];
 
     } else {
-      // Récupère les données du member/stagiaire via son id
+      # Récupère les données du member/stagiaire via son id
       $query = "SELECT * FROM members WHERE id=$id";
       $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
 
@@ -102,7 +102,7 @@ class Member{
     }
   }
 
-  // Sélectionner tous les stages
+  # Sélectionne tous les members/stagiaires
   function all() {
     $query = 'SELECT * FROM members ORDER BY nom, prenom ASC';;
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
@@ -114,9 +114,9 @@ class Member{
     return $t_result;
   }
 
-  // Sélectionner tous les stages
+  # Sélectionner les members/stagiaires actifs
   function actifs() {
-    $query = 'SELECT * FROM members WHERE NOT masque ORDER BY nom, prenom ASC';
+    $query = 'SELECT * FROM active_members';
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
     $t_result = [];
 
@@ -126,7 +126,7 @@ class Member{
     return $t_result;
   }
 
-  // enregistrer un nouveau membre/stagiaire dans la base
+  # enregistrer un nouveau membre/stagiaire dans la base
   function save(){
     $query = "INSERT INTO members (nom, prenom, datenaissance, adresse, cp, ville, email, telfixe, telportable, photo, observation, date_adh, mono, diplome, photo2)
               VALUES ('$this->nom', '$this->prenom', '$this->datenaissance',
@@ -137,7 +137,7 @@ class Member{
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
-  // met à jour un membre/stagiaire dans la base
+  # met à jour un membre/stagiaire dans la base
   function update(){
     $query = "UPDATE members
               SET masque='$this->masque', nom='$this->nom', prenom='$this->prenom', datenaissance='$this->datenaissance',
@@ -149,7 +149,7 @@ class Member{
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
-  // supprimer un membre/stagiaire de la base
+  # supprimer un membre/stagiaire de la base
   function destroy(){
     $query = "DELETE FROM members WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
