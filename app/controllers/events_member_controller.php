@@ -12,6 +12,7 @@ require('../models/events_member.php');
 
 <?php
 
+  # Affiche l'ensemble des inscriptions pour les stages actifs et les membres actifs
   function index($smarty){
     // Récupérer les stages
     $event = new Event();
@@ -23,12 +24,13 @@ require('../models/events_member.php');
     $smarty->display('index.html');
   }
 
+  # créer l'association membre <=> stage
   function create(){
-    # créer l'association membre <=> stage
     $inscription = new EventsMember($_POST['event_id'], $_POST['member_id']);
     $inscription->associer();
   }
 
+  # Affiche la page de modification d'une inscription
   function edit($smarty){
     $events_member = new EventsMember($_GET);
 
@@ -36,7 +38,7 @@ require('../models/events_member.php');
     $smarty->display('edit.html');
   }
 
-  // Enregistre les modifications d'une inscription
+  # Enregistre les modifications d'une inscription
   function update($smarty){
       $member = new EventsMember($_GET);
       $member->update();
@@ -45,13 +47,13 @@ require('../models/events_member.php');
       header( "Location: events_member_controller.php" );
   }
 
+  # détruit l'association membre <=> stage
   function destroy(){
-    # détruire l'association membre <=> stage
     $desinscription = new EventsMember($_POST);
     $desinscription->dissocier();
   }
 
-  // analyse l'action demandée
+  # analyse l'action demandée
   switch ($_GET['action']) {
     case 'create':
       create();

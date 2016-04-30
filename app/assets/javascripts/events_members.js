@@ -4,6 +4,7 @@ $(document).ready(function() {
 
 		inscription = $(this).is(':checked');
 		if (inscription) {
+      // pour l'inscription event_id et member_id sont stockés dans la balise input de la case à cocher
       event_id = $(this).attr("data-event_id");
       member_id = $(this).attr("data-member_id");
 
@@ -18,6 +19,7 @@ $(document).ready(function() {
           });
 
 		} else {
+      // pour la désinscription l'id de events_members est l'id de la balise input de la case à cocher
       id = $(this).attr("id");
 
       // Désinscription
