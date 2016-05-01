@@ -19,23 +19,11 @@ class Event{
       $this->lieu = $_POST['lieu' ];
       $this->datedebut = $_POST['datedebut'];
       $this->datefin = $_POST['datefin'];
-      $this->placedispo = $_POST['placedispo'];
-      $this->observation = $_POST['observation'];
-      $this->titre = $_POST['titre'];
-      $this->descriptif = $_POST['descriptif'];
-      $this->cpterendu = $_POST['cpterendu'];
-      $this->image = $_POST['image'];
 
     } else {
       $this->lieu = '';
       $this->datedebut = '';
       $this->datefin = '';
-      $this->placedispo = '';
-      $this->observation = '';
-      $this->titre = '';
-      $this->descriptif = '';
-      $this->cpterendu = '';
-      $this->image = '';
 
     }
   }
@@ -50,12 +38,6 @@ class Event{
       $this->lieu = $_POST['lieu' ];
       $this->datedebut = $_POST['datedebut'];
       $this->datefin = $_POST['datefin'];
-      $this->placedispo = $_POST['placedispo'];
-      $this->observation = $_POST['observation'];
-      $this->titre = $_POST['titre'];
-      $this->descriptif = $_POST['descriptif'];
-      $this->cpterendu = $_POST['cpterendu'];
-      $this->image = $_POST['image'];
 
     } else {
       # Récupère les données du event/stage via son id
@@ -68,12 +50,6 @@ class Event{
       $this->lieu = $member->lieu;
       $this->datedebut = $member->datedebut;
       $this->datefin = $member->datefin;
-      $this->placedispo = $member->placedispo;
-      $this->observation = $member->observation;
-      $this->titre = $member->titre;
-      $this->descriptif = $member->descriptif;
-      $this->cpterendu = $member->cpterendu;
-      $this->image = $member->image;
     }
   }
 
@@ -104,18 +80,14 @@ class Event{
   # enregistrer un nouveau event/stage dans la base
   function save(){
     $query = "INSERT INTO events (lieu, datedebut, datefin, placedispo, observation, titre, descriptif, cpterendu, image)
-              VALUES ('$this->lieu', '$this->datedebut', '$this->datefin',
-              '$this->placedispo', '$this->observation', '$this->titre', '$this->descriptif',
-              '$this->cpterendu', '$this->image')";
+              VALUES ('$this->lieu', '$this->datedebut', '$this->datefin')";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
 
   # met à jour un event/stage dans la base
   function update(){
     $query = "UPDATE events
-              SET masque='$this->masque', lieu='$this->lieu', datedebut='$this->datedebut', datefin='$this->datefin',
-              placedispo='$this->placedispo', observation='$this->observation', titre='$this->titre', descriptif='$this->descriptif',
-              cpterendu='$this->cpterendu', image='$this->image'
+              SET masque='$this->masque', lieu='$this->lieu', datedebut='$this->datedebut', datefin='$this->datefin'
               WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }

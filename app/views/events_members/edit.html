@@ -20,16 +20,8 @@
 
     <form action="../controllers/events_member_controller.php?action=update&id={$events_member->id}" method="post">
       <div>
-        <label>moniteur</label>
-        <input type="checkbox" name="moniteur" value="1" {($events_member->moniteur == '1') ? "checked='checked'" : ''} />
-      </div>
-      <div>
-        <label>piéton</label>
-        <input type="checkbox" name="pieton" value="1" {($events_member->pieton == '1') ? "checked='checked'" : ''} />
-      </div>
-      <div>
-        <label>matériel</label>
-        <input type="text" name="materiel" value="{$events_member->materiel}" />
+        <label>data specific to subscription</label>
+        <input type="checkbox" name="subscription_data1" value="1" {($events_member->subscription_data1 == '1') ? "checked='checked'" : ''} />
       </div>
 
       <input type="submit">

@@ -25,13 +25,11 @@ class EventsMember{
 
     if (!empty($_POST)) {
       # Récupère les données du event/stage via $_POST (update)
-      $this->moniteur = $_POST['moniteur'];
-      $this->pieton = $_POST['pieton' ];
-      $this->materiel = $_POST['materiel'];
+      //$this->subscription_data1 = $_POST['subscription_data1'];
 
     } else {
       # Récupère les données de l'inscription via son id
-      $query = "SELECT materiel, moniteur, pieton, nom, prenom, lieu FROM events_members
+      $query = "SELECT subscription_data1, nom, prenom, lieu FROM events_members
                 INNER JOIN events ON events_members.event_id = events.id
                 INNER JOIN members ON events_members.member_id = members.id
                 WHERE events_members.id=$this->id";
@@ -39,14 +37,11 @@ class EventsMember{
 
       $events_member = mysql_fetch_object($result);
 
-      $this->moniteur = $events_member->moniteur;
-      $this->pieton = $events_member->pieton;
-      $this->materiel = $events_member->materiel;
+      //$this->subscription_data1 = $events_member->subscription_data1;
 
       # bonus : pour l'affichage de la page edit
       $this->nom = $events_member->nom;
       $this->prenom = $events_member->prenom;
-      $this->lieu = $events_member->lieu;
 
     }
 
@@ -101,7 +96,7 @@ class EventsMember{
   # met à jour une inscription dans la base
   function update(){
     $query = "UPDATE events_members
-              SET moniteur='$this->moniteur', pieton='$this->pieton', materiel='$this->materiel'
+              SET subscription_data1='$this->subscription_data1'
               WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
