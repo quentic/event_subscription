@@ -22,10 +22,6 @@
       SET time_zone = 'SYSTEM';
       SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-      DROP DATABASE IF EXISTS `o2`;
-      CREATE DATABASE `o2` /*!40100 DEFAULT CHARACTER SET latin1 */;
-      USE `o2`;
-
       DROP TABLE IF EXISTS `events`;
       CREATE TABLE `events` (
         `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -82,7 +78,9 @@
         `photo2` varchar(250) COLLATE latin1_general_ci NOT NULL COMMENT 'Pas utilisé',
         `masque` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1 pour masquer le membre dans les affichages',
         PRIMARY KEY (`id`),
-        KEY `masquer` (`masque`)
+        KEY `masquer` (`masque`),
+        KEY `nom` (`nom`),
+        KEY `prenom` (`prenom`)
       ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 
@@ -90,7 +88,7 @@
       CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `active_events` AS select `events`.`id` AS `id`,`events`.`datedebut` AS `datedebut`,`events`.`datefin` AS `datefin`,`events`.`lieu` AS `lieu`,`events`.`placedispo` AS `placedispo`,`events`.`observation` AS `observation`,`events`.`titre` AS `titre`,`events`.`descriptif` AS `descriptif`,`events`.`cpterendu` AS `cpterendu`,`events`.`image` AS `image`,`events`.`masque` AS `masque` from `events` where (not(`events`.`masque`));
 
       DROP VIEW IF EXISTS `active_members`;
-      CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `active_members` AS select `members`.`id` AS `id`,`members`.`nom` AS `nom`,`members`.`prenom` AS `prenom`,`members`.`datenaissance` AS `datenaissance`,`members`.`adresse` AS `adresse`,`members`.`cp` AS `cp`,`members`.`ville` AS `ville`,`members`.`email` AS `email`,`members`.`telfixe` AS `telfixe`,`members`.`telportable` AS `telportable`,`members`.`niveau` AS `niveau`,`members`.`photo` AS `photo`,`members`.`observation` AS `observation`,`members`.`date_adh` AS `date_adh`,`members`.`mono` AS `mono`,`members`.`diplome` AS `diplome`,`members`.`photo2` AS `photo2`,`members`.`masque` AS `masque` from `members` where (not(`members`.`masque`));
+      CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `active_members` AS select `members`.`id` AS `id`,`members`.`nom` AS `nom`,`members`.`prenom` AS `prenom`,`members`.`datenaissance` AS `datenaissance`,`members`.`adresse` AS `adresse`,`members`.`cp` AS `cp`,`members`.`ville` AS `ville`,`members`.`email` AS `email`,`members`.`telfixe` AS `telfixe`,`members`.`telportable` AS `telportable`,`members`.`niveau` AS `niveau`,`members`.`photo` AS `photo`,`members`.`observation` AS `observation`,`members`.`date_adh` AS `date_adh`,`members`.`mono` AS `mono`,`members`.`diplome` AS `diplome`,`members`.`photo2` AS `photo2`,`members`.`masque` AS `masque` from `members` where (not(`members`.`masque`)) order by `members`.`nom`,`members`.`prenom`;
    ");
   }
 ?>
