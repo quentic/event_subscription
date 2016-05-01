@@ -14,11 +14,11 @@ require('../models/events_member.php');
 
   # Affiche l'ensemble des inscriptions pour les stages actifs et les membres actifs
   function index($smarty){
-    // Récupérer les stages
+    # Récupérer les stages
     $event = new Event();
     $smarty->assign('events',$event->actifs());
 
-    // Récupérer les inscriptions
+    # Récupérer les inscriptions
     $events_member = new EventsMember();
     $smarty->assign('subscriptions', $events_member->all($event->actifs()));
     $smarty->display('index.html');
@@ -43,7 +43,7 @@ require('../models/events_member.php');
       $member = new EventsMember($_GET);
       $member->update();
 
-      // on ré-affiche la liste des inscriptions
+      # Ré-affiche la liste des inscriptions
       header( "Location: events_member_controller.php" );
   }
 
