@@ -24,9 +24,8 @@
           <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
           <th data-tablesaw-sortable-col>Du...</th>
           <th>au...</th>
-          <th></th>
-          <th></th>
-          <th></th>
+          <th>Edit</th>
+          <th>Destroy</th>
         </tr>
       </thead>
 
@@ -36,8 +35,8 @@
             <td>{$event->lieu}</td>
             <td>{$event->datedebut}</td>
             <td>{$event->datefin}</td>
-            <td><a href="event_controller.php?action=edit&id={$event->id}">Modifier</a></td>
-            <td><a href="event_controller.php?action=destroy&id={$event->id}">Supprimer</a></td>
+            <td><a href="event_controller.php?action=edit&id={$event->id}" class="edit" title="Edit this event"></a></td>
+            <td><a href="event_controller.php?action=destroy&id={$event->id}" class="bin" title="Delete this event" data-warning="You are going to delete this event and all corresponding subscriptions. Are-you sure?"></a></td>
         </tr>
         {/foreach}
       </tbody>
