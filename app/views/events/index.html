@@ -32,7 +32,7 @@
       <tbody>
         {foreach from=$events item=event}
         <tr>
-            <td>{$event->lieu}</td>
+            <td class="texte">{$event->lieu}</td>
             <td>{$event->datedebut}</td>
             <td>{$event->datefin}</td>
             <td><a href="event_controller.php?action=edit&id={$event->id}" class="edit" title="modifier ce stage"></a></td>

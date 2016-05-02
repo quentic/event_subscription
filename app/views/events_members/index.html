@@ -28,12 +28,12 @@
           {/foreach}
         </tr>
       </thead>
-      
+
       <tbody>
         {foreach from=$subscriptions item=subscription}
         <tr>
-          <td><a href="../controllers/member_controller.php?action=edit&id={$subscription['member_id']}">{$subscription['nom']}</a></td>
-          <td>{$subscription['prenom']}</td>
+          <td class="texte"><a href="../controllers/member_controller.php?action=edit&id={$subscription['member_id']}">{$subscription['nom']}</a></td>
+          <td class="texte">{$subscription['prenom']}</td>
           {for $i=0 to count($events)-1}
             {if ($subscription[$i] > 0)}
               <!-- le membre est inscrit à ce stage -->

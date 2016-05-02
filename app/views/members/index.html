@@ -32,8 +32,8 @@
       <tbody>
         {foreach from=$members item=member}
         <tr>
-          <td>{$member->nom}</td>
-          <td>{$member->prenom}</td>
+          <td class="texte">{$member->nom}</td>
+          <td class="texte">{$member->prenom}</td>
           <td><a href="member_controller.php?action=edit&id={$member->id}" class="edit" title="Modifier ce stagiaire"></a></td>
           <td><a href="member_controller.php?action=destroy&id={$member->id}" class="bin" title="Supprimer ce stagiaire" data-warning="Tu vas supprimer cet adhérent et toutes ses inscriptions stage associées. Es-tu sûr ?"></a></td>
         </tr>
