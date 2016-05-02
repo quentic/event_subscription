@@ -1,12 +1,12 @@
 <?php
-
 require('../../config/database.php');
 require('../../config/smarty.php');
 
-// initialisations propres à ce controleur
+# initialisations propres à ce controleur
+# Accès aux vues
 $smarty->setTemplateDir('../../app/views/events_members');
+# Accès aux modèles
 require('../models/event.php');
-require('../models/member.php');
 require('../models/events_member.php');
 ?>
 
@@ -14,13 +14,13 @@ require('../models/events_member.php');
 
   # Affiche l'ensemble des inscriptions pour les stages actifs et les membres actifs
   function index($smarty){
-    // Récupérer les stages
+    # Récupère les stages actifs
     $event = new Event();
     $smarty->assign('events',$event->actifs());
 
-    // Récupérer les inscriptions
+    # Récupère les inscriptions
     $events_member = new EventsMember();
-    $smarty->assign('subscriptions', $events_member->all($event->actifs()));
+    $smarty->assign('subscriptions', $events_member->all( $event->actifs() ));
     $smarty->display('index.html');
   }
 
@@ -43,7 +43,7 @@ require('../models/events_member.php');
       $member = new EventsMember($_GET);
       $member->update();
 
-      // on ré-affiche la liste des inscriptions
+      # Ré-affiche la liste des inscriptions
       header( "Location: events_member_controller.php" );
   }
 
@@ -53,27 +53,8 @@ require('../models/events_member.php');
     $desinscription->dissocier();
   }
 
-  # analyse l'action demandée
-  switch ($_GET['action']) {
-    case 'create':
-      create();
-      break;
+?>
 
-    case 'edit':
-      edit($smarty);
-      break;
-
-    case 'update':
-      update($smarty);
-      break;
-
-    case 'destroy':
-      destroy();
-      break;
-
-    default:
-      # Affiche la page index par défaut
-      index($smarty);
-  }
-
+<?php
+  require('application.php');
 ?>

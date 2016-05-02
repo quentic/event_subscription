@@ -1,11 +1,12 @@
 <?php
-
 require('../../config/database.php');
 require('../../config/smarty.php');
 
 # initialisations propres à ce controleur
-require('../models/member.php');
+# Accès aux vues
 $smarty->setTemplateDir('../../app/views/members');
+# Accès au modèle
+require('../models/member.php');
 ?>
 
 <?php
@@ -60,36 +61,8 @@ $smarty->setTemplateDir('../../app/views/members');
         $smarty->display('index.html');
     }
 
-    # récupère les paramètres action et id dans l'URL, s'ils existent
-    $action = isset($_GET['action']) ? $_GET['action'] : '';
-    $id = isset($_GET['id']) ? $_GET['id'] : '';
+?>
 
-    # analyse l'action demandée
-    switch ($action) {
-      case 'new':
-        # Affiche la page new.html
-        new_m($smarty);
-        break;
-
-      case 'create':
-        create($smarty);
-        break;
-
-      case 'edit':
-        edit($smarty, $id);
-        break;
-
-      case 'update':
-        update($smarty, $id);
-        break;
-
-      case 'destroy':
-        destroy($smarty, $id);
-        break;
-
-      default:
-        # Affiche la page index par défaut
-        index($smarty);
-    }
-
+<?php
+  require('application.php');
 ?>
