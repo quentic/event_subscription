@@ -64,6 +64,7 @@ class EventsMember{
     # Construction de la requête toutes les inscription des membres actifs aux stages actifs
     $query = 'SELECT ';
     foreach ($events_actifs as $event) {
+      # Ajoute une colonne par stage actif et évalue si le member/stagiaire y est inscrit
       $select[] =  "MAX(IF(event_id=$event->id, events_members.id, 0)) AS s_$event->id";
       }
     $query .= join(', ', $select);
@@ -75,7 +76,6 @@ class EventsMember{
                 ORDER BY active_members.nom';
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
 
-    # on ne veut que les valeurs numériques dans le tableau (pas les clés)
     while ($subscription = mysql_fetch_array($result)) {
       $subscriptions[] = $subscription;
     }
