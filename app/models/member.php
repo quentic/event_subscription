@@ -17,38 +17,10 @@ class Member{
   public function __construct0(){
     if (!empty($_POST)) {
       # Récupère les données du event/stage via $_POST (new)
-      $this->nom = $_POST['nom' ];
-      $this->prenom = $_POST['prenom'];
-      $this->datenaissance = $_POST['datenaissance'];
-      $this->adresse = $_POST['adresse'];
-      $this->cp = $_POST['cp'];
-      $this->ville = $_POST['ville'];
-      $this->email = $_POST['email'];
-      $this->telfixe = $_POST['telfixe'];
-      $this->telportable = $_POST['telportable'];
-      $this->photo = $_POST['photo'];
-      $this->observation = $_POST['observation'];
-      $this->date_adh = $_POST['date_adh'];
-      $this->mono = $_POST['mono'];
-      $this->diplome = $_POST['diplome'];
-      $this->photo2 = $_POST['photo2'];
+      $this->init($_POST);
 
     } else {
-      $this->nom = '';
-      $this->prenom = '';
-      $this->datenaissance = '';
-      $this->adresse = '';
-      $this->cp = '';
-      $this->ville = '';
-      $this->email = '';
-      $this->telfixe = '';
-      $this->telportable = '';
-      $this->photo = '';
-      $this->observation = '';
-      $this->date_adh = '';
-      $this->mono = '';
-      $this->diplome = '';
-      $this->photo2 = '';
+      $this->init([]);
 
     }
   }
@@ -59,46 +31,16 @@ class Member{
 
     if (!empty($_POST)) {
       # Récupère les données du member/stagiaire via le $_POST
-      $this->masque = $_POST['masque'];
-      $this->nom = $_POST['nom' ];
-      $this->prenom = $_POST['prenom'];
-      $this->datenaissance = $_POST['datenaissance'];
-      $this->adresse = $_POST['adresse'];
-      $this->cp = $_POST['cp'];
-      $this->ville = $_POST['ville'];
-      $this->email = $_POST['email'];
-      $this->telfixe = $_POST['telfixe'];
-      $this->telportable = $_POST['telportable'];
-      $this->photo = $_POST['photo'];
-      $this->observation = $_POST['observation'];
-      $this->date_adh = $_POST['date_adh'];
-      $this->mono = $_POST['mono'];
-      $this->diplome = $_POST['diplome'];
-      $this->photo2 = $_POST['photo2'];
+      $this->init($_POST);
 
     } else {
       # Récupère les données du member/stagiaire via son id
       $query = "SELECT * FROM members WHERE id=$id";
       $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+      $member = mysql_fetch_array($result);
 
-      $member = mysql_fetch_object($result);
+      $this->init($member);
 
-      $this->masque = $member->masque;
-      $this->nom = $member->nom;
-      $this->prenom = $member->prenom;
-      $this->datenaissance = $member->datenaissance;
-      $this->adresse = $member->adresse;
-      $this->cp = $member->cp;
-      $this->ville = $member->ville;
-      $this->email = $member->email;
-      $this->telfixe = $member->telfixe;
-      $this->telportable = $member->telportable;
-      $this->photo = $member->photo;
-      $this->observation = $member->observation;
-      $this->date_adh = $member->date_adh;
-      $this->mono = $member->mono;
-      $this->diplome = $member->diplome;
-      $this->photo2 = $member->photo2;
     }
   }
 
@@ -142,6 +84,25 @@ class Member{
     $query = "DELETE FROM members WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
+
+  # initialise l'objet avec le tableau fourni en paramètre
+  protected function init($t_init){
+    $this->nom = $t_init['nom' ];
+    $this->prenom = $t_init['prenom'];
+    $this->datenaissance = $t_init['datenaissance'];
+    $this->adresse = $t_init['adresse'];
+    $this->cp = $t_init['cp'];
+    $this->ville = $t_init['ville'];
+    $this->email = $t_init['email'];
+    $this->telfixe = $t_init['telfixe'];
+    $this->telportable = $t_init['telportable'];
+    $this->photo = $t_init['photo'];
+    $this->observation = $t_init['observation'];
+    $this->date_adh = $t_init['date_adh'];
+    $this->mono = $t_init['mono'];
+    $this->diplome = $t_init['diplome'];
+    $this->photo2 = $t_init['photo2'];
+  }
 
 }
 

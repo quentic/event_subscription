@@ -25,9 +25,7 @@ class EventsMember{
 
     if (!empty($_POST)) {
       # Récupère les données du event/stage via $_POST (update)
-      $this->moniteur = $_POST['moniteur'];
-      $this->pieton = $_POST['pieton' ];
-      $this->materiel = $_POST['materiel'];
+      $this->init($_POST);
 
     } else {
       # Récupère les données de l'inscription via son id
@@ -37,16 +35,14 @@ class EventsMember{
                 WHERE events_members.id=$this->id";
       $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
 
-      $events_member = mysql_fetch_object($result);
+      $events_member = mysql_fetch_array($result);
 
-      $this->moniteur = $events_member->moniteur;
-      $this->pieton = $events_member->pieton;
-      $this->materiel = $events_member->materiel;
+      $this->init($events_member);
 
       # bonus : pour l'affichage de la page edit
-      $this->nom = $events_member->nom;
-      $this->prenom = $events_member->prenom;
-      $this->lieu = $events_member->lieu;
+      $this->nom = $events_member['nom'];
+      $this->prenom = $events_member['prenom'];
+      $this->lieu = $events_member['lieu'];
 
     }
 
@@ -105,6 +101,13 @@ class EventsMember{
               WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
+
+  # initialise l'objet avec le tableau fourni en paramètre
+  protected function init($t_init){
+    $this->moniteur = $t_init['moniteur'];
+    $this->pieton = $t_init['pieton' ];
+    $this->materiel = $t_init['materiel'];
+  }
 
 }
 

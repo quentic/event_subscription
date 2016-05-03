@@ -16,26 +16,10 @@ class Event{
   public function __construct0(){
     if (!empty($_POST)) {
       # Récupère les données du event/stage via $_POST (new)
-      $this->lieu = $_POST['lieu' ];
-      $this->datedebut = $_POST['datedebut'];
-      $this->datefin = $_POST['datefin'];
-      $this->placedispo = $_POST['placedispo'];
-      $this->observation = $_POST['observation'];
-      $this->titre = $_POST['titre'];
-      $this->descriptif = $_POST['descriptif'];
-      $this->cpterendu = $_POST['cpterendu'];
-      $this->image = $_POST['image'];
+      $this->init($_POST);
 
     } else {
-      $this->lieu = '';
-      $this->datedebut = '';
-      $this->datefin = '';
-      $this->placedispo = '';
-      $this->observation = '';
-      $this->titre = '';
-      $this->descriptif = '';
-      $this->cpterendu = '';
-      $this->image = '';
+      $this->init([]);
 
     }
   }
@@ -46,34 +30,15 @@ class Event{
 
     if (!empty($_POST)) {
       # Récupère les données du event/stage via $_POST (update)
-      $this->masque = $_POST['masque'];
-      $this->lieu = $_POST['lieu' ];
-      $this->datedebut = $_POST['datedebut'];
-      $this->datefin = $_POST['datefin'];
-      $this->placedispo = $_POST['placedispo'];
-      $this->observation = $_POST['observation'];
-      $this->titre = $_POST['titre'];
-      $this->descriptif = $_POST['descriptif'];
-      $this->cpterendu = $_POST['cpterendu'];
-      $this->image = $_POST['image'];
+      $this->init($_POST);
 
     } else {
       # Récupère les données du event/stage via son id
       $query = "SELECT * FROM events WHERE id=$id";
       $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
 
-      $member = mysql_fetch_object($result);
-
-      $this->masque = $member->masque;
-      $this->lieu = $member->lieu;
-      $this->datedebut = $member->datedebut;
-      $this->datefin = $member->datefin;
-      $this->placedispo = $member->placedispo;
-      $this->observation = $member->observation;
-      $this->titre = $member->titre;
-      $this->descriptif = $member->descriptif;
-      $this->cpterendu = $member->cpterendu;
-      $this->image = $member->image;
+      $member = mysql_fetch_array($result);
+      $this->init($member);
     }
   }
 
@@ -124,6 +89,19 @@ class Event{
   function destroy(){
     $query = "DELETE FROM events WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+  }
+
+  # initialise l'objet avec le tableau fourni en paramètre
+  protected function init($t_init){
+    $this->lieu = $t_init['lieu' ];
+    $this->datedebut = $t_init['datedebut'];
+    $this->datefin = $t_init['datefin'];
+    $this->placedispo = $t_init['placedispo'];
+    $this->observation = $t_init['observation'];
+    $this->titre = $t_init['titre'];
+    $this->descriptif = $t_init['descriptif'];
+    $this->cpterendu = $t_init['cpterendu'];
+    $this->image = $t_init['image'];
   }
 }
 
