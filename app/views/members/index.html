@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
   <head>
       <meta charset="utf-8" />
-      <title>Oxygène : La liste des stagiaires</title>
+      <title>List of members</title>
       <link rel="stylesheet" href="../assets/stylesheets/style.css" />
   </head>
 
@@ -11,19 +11,19 @@
 
     <nav>
       <ul>
-        <li><a href="../controllers/member_controller.php?action=new">Nouveau stagiaire</a></li>
-        <li><a href="../controllers/event_controller.php">Les stages</a></li>
-        <li><a href="../controllers/events_member_controller.php">Les inscriptions</a></li>
+        <li><a href="../controllers/member_controller.php?action=new">New member</a></li>
+        <li><a href="../controllers/event_controller.php">Events</a></li>
+        <li><a href="../controllers/events_member_controller.php">Subscriptions</a></li>
       </ul>
     </nav>
 
-    <h1>La liste des stagiaires</h1>
+    <h1>List of members</h1>
 
     <table data-tablesaw-sortable data-tablesaw-no-labels>
       <thead>
         <tr>
-          <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
-          <th data-tablesaw-sortable-col>Prénom</th>
+          <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Last name</th>
+          <th data-tablesaw-sortable-col>First name</th>
           <th>Edit</th>
           <th>Destroy</th>
         </tr>
@@ -32,8 +32,8 @@
       <tbody>
         {foreach from=$members item=member}
         <tr>
-          <td>{$member->nom}</td>
-          <td>{$member->prenom}</td>
+          <td class="texte">{$member->nom}</td>
+          <td class="texte">{$member->prenom}</td>
           <td><a href="member_controller.php?action=edit&id={$member->id}" class="edit" title="Edit this member"></a></td>
           <td><a href="member_controller.php?action=destroy&id={$member->id}" class="bin" title="Delete this member" data-warning="You are going to delete this member and all his corresponding subscriptions. Are-you sure?"></a></td>
         </tr>

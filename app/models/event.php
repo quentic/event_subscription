@@ -16,14 +16,10 @@ class Event{
   public function __construct0(){
     if (!empty($_POST)) {
       # Récupère les données du event/stage via $_POST (new)
-      $this->lieu = $_POST['lieu' ];
-      $this->datedebut = $_POST['datedebut'];
-      $this->datefin = $_POST['datefin'];
+      $this->init($_POST);
 
     } else {
-      $this->lieu = '';
-      $this->datedebut = '';
-      $this->datefin = '';
+      $this->init([]);
 
     }
   }
@@ -34,22 +30,15 @@ class Event{
 
     if (!empty($_POST)) {
       # Récupère les données du event/stage via $_POST (update)
-      $this->masque = $_POST['masque'];
-      $this->lieu = $_POST['lieu' ];
-      $this->datedebut = $_POST['datedebut'];
-      $this->datefin = $_POST['datefin'];
+      $this->init($_POST);
 
     } else {
       # Récupère les données du event/stage via son id
       $query = "SELECT * FROM events WHERE id=$id";
       $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+      $member = mysql_fetch_array($result);
 
-      $member = mysql_fetch_object($result);
-
-      $this->masque = $member->masque;
-      $this->lieu = $member->lieu;
-      $this->datedebut = $member->datedebut;
-      $this->datefin = $member->datefin;
+      $this->init($member);
     }
   }
 
@@ -79,7 +68,7 @@ class Event{
 
   # enregistrer un nouveau event/stage dans la base
   function save(){
-    $query = "INSERT INTO events (lieu, datedebut, datefin, placedispo, observation, titre, descriptif, cpterendu, image)
+    $query = "INSERT INTO events (lieu, datedebut, datefin)
               VALUES ('$this->lieu', '$this->datedebut', '$this->datefin')";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
@@ -97,6 +86,14 @@ class Event{
     $query = "DELETE FROM events WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
+
+  protected function init($t_init){
+    $this->masque = $t_init['masque'];
+    $this->lieu = $t_init['lieu' ];
+    $this->datedebut = $t_init['datedebut'];
+    $this->datefin = $t_init['datefin'];
+  }
+
 }
 
 ?>

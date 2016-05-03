@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
   <head>
     <meta charset="utf-8" />
-    <title>Oxygène : S'inscrire aux stages</title>
+    <title>Subscribe to an event</title>
     <link rel="stylesheet" href="../assets/stylesheets/style.css" />
   </head>
 
   <body>
     <nav>
       <ul>
-        <li><a href="../controllers/event_controller.php">Les stages</a></li>
-        <li><a href="../controllers/member_controller.php">Les stagiaires</a></li>
+        <li><a href="../controllers/event_controller.php">Events</a></li>
+        <li><a href="../controllers/member_controller.php">Members</a></li>
       </ul>
     </nav>
 
-    <h1>Les inscriptions aux stages</h1>
+    <h1>Subscribe to an event</h1>
 
     <form>
     <table data-tablesaw-sortable data-tablesaw-no-labels>
       <thead>
         <tr>
-          <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
-          <th data-tablesaw-sortable-col>Prénom</th>
+          <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Last Name</th>
+          <th data-tablesaw-sortable-col>First name</th>
           {foreach from=$events item=event}
             <th data-tablesaw-sortable-col>{$event->lieu}</th>
           {/foreach}
         </tr>
       </thead>
-      
+
       <tbody>
         {foreach from=$subscriptions item=subscription}
         <tr>
-          <td><a href="../controllers/member_controller.php?action=edit&id={$subscription['member_id']}">{$subscription['nom']}</a></td>
-          <td>{$subscription['prenom']}</td>
+          <td class="texte"><a href="../controllers/member_controller.php?action=edit&id={$subscription['member_id']}">{$subscription['nom']}</a></td>
+          <td class="texte">{$subscription['prenom']}</td>
           {for $i=0 to count($events)-1}
             {if ($subscription[$i] > 0)}
               <!-- le membre est inscrit à ce stage -->

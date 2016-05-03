@@ -17,13 +17,10 @@ class Member{
   public function __construct0(){
     if (!empty($_POST)) {
       # Récupère les données du event/stage via $_POST (new)
-      $this->nom = $_POST['nom' ];
-      $this->prenom = $_POST['prenom'];
+      $this->init($_POST);
 
     } else {
-      $this->nom = '';
-      $this->prenom = '';
-      $this->datenaissance = '';
+      $this->init([]);
 
     }
   }
@@ -34,20 +31,15 @@ class Member{
 
     if (!empty($_POST)) {
       # Récupère les données du member/stagiaire via le $_POST
-      $this->masque = $_POST['masque'];
-      $this->nom = $_POST['nom' ];
-      $this->prenom = $_POST['prenom'];
+      $this->init($_POST);
 
     } else {
       # Récupère les données du member/stagiaire via son id
       $query = "SELECT * FROM members WHERE id=$id";
       $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+      $member = mysql_fetch_array($result);
 
-      $member = mysql_fetch_object($result);
-
-      $this->masque = $member->masque;
-      $this->nom = $member->nom;
-      $this->prenom = $member->prenom;
+      $this->init($member);
     }
   }
 
@@ -83,6 +75,11 @@ class Member{
     $query = "DELETE FROM members WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
+
+  protected function init($t_init){
+    $this->nom = $t_init['nom' ];
+    $this->prenom = $t_init['prenom'];
+  }
 
 }
 

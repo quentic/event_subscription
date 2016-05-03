@@ -34,10 +34,9 @@ class EventsMember{
                 INNER JOIN members ON events_members.member_id = members.id
                 WHERE events_members.id=$this->id";
       $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+      $events_member = mysql_fetch_array($result);
 
-      $events_member = mysql_fetch_object($result);
-
-      //$this->subscription_data1 = $events_member->subscription_data1;
+      $this->init($events_member);
 
       # bonus : pour l'affichage de la page edit
       $this->nom = $events_member->nom;
@@ -100,6 +99,10 @@ class EventsMember{
               WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
+
+  protected function init($t_init){
+    //$this->subscription_data1 = $events_member->subscription_data1;
+  }
 
 }
 

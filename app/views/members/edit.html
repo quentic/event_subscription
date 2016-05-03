@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
   <head>
     <meta charset="utf-8" />
-    <title>Oxygène : Modifier un stagiaire</title>
+    <title>Edit a member</title>
     <link rel="stylesheet" href="../assets/stylesheets/style.css" />
     <link rel="stylesheet" href="../assets/stylesheets/jquery-ui-1.11.4.custom/jquery-ui.css" />
   </head>
@@ -11,25 +11,25 @@
   <body>
     <nav>
       <ul>
-        <li><a href="../controllers/event_controller.php">Les stages</a></li>
-        <li><a href="../controllers/member_controller.php">Les stagiaires</a></li>
-        <li><a href="../controllers/events_member_controller.php">Les inscriptions</a></li>
+        <li><a href="../controllers/event_controller.php">Events</a></li>
+        <li><a href="../controllers/member_controller.php">Members</a></li>
+        <li><a href="../controllers/events_member_controller.php">Subscriptions</a></li>
       </ul>
     </nav>
 
-    <h1>Modifier un stagiaire</h1>
+    <h1>Edit a member</h1>
 
     <form action="../controllers/member_controller.php?action=update&id={$member->id}" method="post">
       <div>
-        <label>Masquer</label>
+        <label>Hide</label>
         <input type="checkbox" name="masque" value="1" {($member->masque == '1') ? "checked='checked'" : ''} />
       </div>
       <div>
-        <label>Nom</label>
+        <label>Last name</label>
         <input type="text" name="nom" value="{$member->nom}" />
       </div>
       <div>
-        <label>Prénom</label>
+        <label>First name</label>
         <input type="text" name="prenom" value="{$member->prenom}" />
       </div>
 
