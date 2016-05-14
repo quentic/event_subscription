@@ -84,11 +84,27 @@
       ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 
+      DROP TABLE IF EXISTS `niveaux`;
+      CREATE TABLE `niveaux` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `numniveau` smallint(6) NOT NULL DEFAULT '0',
+        `libniveau` varchar(16) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+        PRIMARY KEY (`id`),
+        UNIQUE KEY `numniveau` (`numniveau`)
+      ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+
       DROP VIEW IF EXISTS `active_events`;
       CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `active_events` AS select `events`.`id` AS `id`,`events`.`datedebut` AS `datedebut`,`events`.`datefin` AS `datefin`,`events`.`lieu` AS `lieu`,`events`.`placedispo` AS `placedispo`,`events`.`observation` AS `observation`,`events`.`titre` AS `titre`,`events`.`descriptif` AS `descriptif`,`events`.`cpterendu` AS `cpterendu`,`events`.`image` AS `image`,`events`.`masque` AS `masque` from `events` where (not(`events`.`masque`));
 
       DROP VIEW IF EXISTS `active_members`;
       CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `active_members` AS select `members`.`id` AS `id`,`members`.`nom` AS `nom`,`members`.`prenom` AS `prenom`,`members`.`datenaissance` AS `datenaissance`,`members`.`adresse` AS `adresse`,`members`.`cp` AS `cp`,`members`.`ville` AS `ville`,`members`.`email` AS `email`,`members`.`telfixe` AS `telfixe`,`members`.`telportable` AS `telportable`,`members`.`niveau` AS `niveau`,`members`.`photo` AS `photo`,`members`.`observation` AS `observation`,`members`.`date_adh` AS `date_adh`,`members`.`mono` AS `mono`,`members`.`diplome` AS `diplome`,`members`.`photo2` AS `photo2`,`members`.`masque` AS `masque` from `members` where (not(`members`.`masque`)) order by `members`.`nom`,`members`.`prenom`;
+
+      DROP VIEW IF EXISTS `membres sans stage`;
+      CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `membres sans stage` AS select `members`.`id` AS `id` from ((`members` left join `events_members` on((`events_members`.`member_id` = `members`.`id`))) left join `events` on((`events_members`.`event_id` = `events`.`id`))) group by `members`.`id` having (sum(if((`events`.`id` is not null),1,0)) = 0);
+
+      DROP VIEW IF EXISTS `membres_dernier_stage_en_2014`;
+      CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `membres_dernier_stage_en_2014` AS select `events_members`.`member_id` AS `member_id` from ((`events_members` join `events` on((`events_members`.`event_id` = `events`.`id`))) join `members` on((`events_members`.`member_id` = `members`.`id`))) group by `events_members`.`member_id` having (max(`events`.`datedebut`) <= '2014-12-31') order by `events_members`.`member_id`;
    ");
   }
 ?>

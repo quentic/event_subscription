@@ -7,6 +7,7 @@ require('../../config/smarty.php');
 $smarty->setTemplateDir('../../app/views/members');
 # Accès au modèle
 require('../models/member.php');
+require('../models/niveau.php');
 ?>
 
 <?php
@@ -20,6 +21,10 @@ require('../models/member.php');
 
     # Affiche la page pour créer un nouveau stagiaire
     function new_m($smarty){
+      // pour construire la liste déroulante des niveaux
+      $niveau = new Niveau();
+      $smarty->assign('niveaux', $niveau->all_num_lib());
+
       $smarty->display('new.html');
     }
 
@@ -28,6 +33,12 @@ require('../models/member.php');
       $member = new Member($id);
 
       $smarty->assign('member', $member);
+
+      // pour construire la liste déroulante des niveaux
+      $niveau = new Niveau();
+      $smarty->assign('niveaux', $niveau->all_num_lib());
+      $smarty->assign('mon_niveau', $member->niveau);
+
       $smarty->display('edit.html');
     }
 

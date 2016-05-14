@@ -58,11 +58,11 @@ class Member{
 
   # enregistrer un nouveau membre/stagiaire dans la base
   function save(){
-    $query = "INSERT INTO members (nom, prenom, datenaissance, adresse, cp, ville, email, telfixe, telportable, photo, observation, date_adh, mono, diplome, photo2)
+    $query = "INSERT INTO members (nom, prenom, datenaissance, adresse, cp, ville, email, telfixe, telportable, niveau, photo, observation, date_adh, mono, diplome, photo2)
               VALUES ('$this->nom', '$this->prenom', '$this->datenaissance',
                       '$this->adresse', '$this->cp', '$this->ville',
                       '$this->email', '$this->telfixe', '$this->telportable',
-                      '$this->photo', '$this->observation', '$this->date_adh',
+                      '$this->niveau', '$this->photo', '$this->observation', '$this->date_adh',
                       '$this->mono', '$this->diplome', '$this->photo2')";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
@@ -73,7 +73,7 @@ class Member{
               SET masque='$this->masque', nom='$this->nom', prenom='$this->prenom', datenaissance='$this->datenaissance',
               adresse='$this->adresse', cp='$this->cp', ville='$this->ville',
               email='$this->email', telfixe='$this->telfixe', telportable='$this->telportable',
-              photo='$this->photo', observation='$this->observation', date_adh='$this->date_adh',
+              niveau='$this->niveau', photo='$this->photo', observation='$this->observation', date_adh='$this->date_adh',
               mono='$this->mono', diplome='$this->diplome', photo2='$this->photo2'
               WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
@@ -96,6 +96,7 @@ class Member{
     $this->email = $t_init['email'];
     $this->telfixe = $t_init['telfixe'];
     $this->telportable = $t_init['telportable'];
+    $this->niveau = $t_init['niveau'];
     $this->photo = $t_init['photo'];
     $this->observation = $t_init['observation'];
     $this->date_adh = $t_init['date_adh'];

@@ -62,7 +62,7 @@
       </div>
       <div>
         <label>niveau</label>
-        <input type="text" name="niveau" value="{$member->niveau}" />
+        {html_options name=niveau options=$niveaux selected=$mon_niveau}
       </div>
       <div>
         <label>photo</label>
