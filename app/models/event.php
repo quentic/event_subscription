@@ -36,8 +36,8 @@ class Event{
       # Récupère les données du event/stage via son id
       $query = "SELECT * FROM events WHERE id=$id";
       $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
-
       $member = mysql_fetch_array($result);
+
       $this->init($member);
     }
   }
@@ -93,6 +93,7 @@ class Event{
 
   # initialise l'objet avec le tableau fourni en paramètre
   protected function init($t_init){
+    $this->masque = $t_init['masque'];
     $this->lieu = $t_init['lieu' ];
     $this->datedebut = $t_init['datedebut'];
     $this->datefin = $t_init['datefin'];

@@ -34,7 +34,6 @@ class EventsMember{
                 INNER JOIN members ON events_members.member_id = members.id
                 WHERE events_members.id=$this->id";
       $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
-
       $events_member = mysql_fetch_array($result);
 
       $this->init($events_member);

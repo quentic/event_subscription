@@ -27,7 +27,7 @@ tbody tr:nth-child(odd){
 th, td{
   padding:1em;
   border:none;
-  text-align: center;
+  text-align:center;
 }
 .inscrit_pour_tri{display:none}
 td.texte{text-align:left}
