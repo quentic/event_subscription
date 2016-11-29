@@ -38,14 +38,14 @@
             {if ($subscription[$i] > 0)}
               <!-- le membre est inscrit à ce stage -->
               <td class="inscription">
-                <span class="inscrit_pour_tri">inscrit</span>
+                <span class="inscrit_pour_tri">2</span>
                 <input type="checkbox" id="{$subscription[$i]}" value="" checked="checked">
                 <a href="events_member_controller.php?action=edit&id={$subscription[$i]}" class="edit"></a>
               </td>
             {else}
               <!-- le membre n'est pas inscrit à ce stage -->
               <td class="inscription">
-                <span class="inscrit_pour_tri">non inscrit</span>
+                <span class="inscrit_pour_tri">1</span>
                 <input type="checkbox" data-member_id="{$subscription['member_id']}" data-event_id="{$events[$i]->id}" value="">
               </td>
             {/if}
