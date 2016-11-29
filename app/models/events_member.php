@@ -60,20 +60,27 @@ class EventsMember{
   function all($events_actifs) {
     $subscriptions = [];
     $select = [];
+    $dernier_stage_id = $events_actifs[0]->id;
 
     # Construction de la requête toutes les inscription des membres actifs aux stages actifs
     $query = 'SELECT ';
+
+    # Construit un indicateur d'inscription au dernier stage pour trier sur cette information
+    $query .= "MAX(IF(event_id=$dernier_stage_id, 1, 0)) AS inscrit_dernier_stage,  ";
+
+    # Ajoute une colonne par stage actif et évalue si le member/stagiaire y est inscrit
+    # S'il est inscrit, on récupère l'id de l'inscription (qui pourra servir à le désinscrire)
     foreach ($events_actifs as $event) {
-      # Ajoute une colonne par stage actif et évalue si le member/stagiaire y est inscrit
-      $select[] =  "MAX(IF(event_id=$event->id, events_members.id, 0)) AS s_$event->id";
+      $select[] =  "MAX(IF(event_id=$event->id, events_members.id, 0))";
       }
     $query .= join(', ', $select);
-    $query .= ', member_id, active_members.nom, active_members.prenom';
-    $query .= ' FROM active_members
-                LEFT JOIN events_members ON events_members.member_id = active_members.id
-                LEFT JOIN active_events ON events_members.event_id = active_events.id
-                GROUP BY active_members.id
-                ORDER BY active_members.nom';
+
+    $query .= ', member_id, am.nom, am.prenom';
+    $query .= " FROM active_members am
+                LEFT JOIN events_members ON events_members.member_id = am.id
+                GROUP BY am.id
+                ORDER BY inscrit_dernier_stage DESC, am.nom ASC, am.prenom ASC";
+
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
 
     while ($subscription = mysql_fetch_array($result)) {
