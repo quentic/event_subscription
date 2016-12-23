@@ -8,25 +8,25 @@ $(document).ready(function() {
 		masquer = $(this).is(':checked');
 
 		if (masquer) {
-      // Masquer
+      // Hide
       $.post("member_controller.php?action=update_masque&id=" + member_id,
           {
             masque: 1
           },
           function(data, status){
-            alert('Stagiaire masqué ' + (status=='success' ? 'bien ' : 'non ') + 'enregistré');
+            alert('Member hidden ' + (status=='success' ? '' : 'not ') + 'saved');
           });
 
 
 		} else {
-      // Démasquer
+      // Show
       $.post("member_controller.php?action=update_masque&id=" + member_id,
           {
             id: member_id,
             masque: 0
           },
           function(data, status){
-            alert('Stagiaire non masqué ' + (status=='success' ? 'bien ' : 'non ') + 'enregistré');
+            alert('Member not hidden ' + (status=='success' ? '' : 'not ') + 'saved');
           });
 		}
 	});
