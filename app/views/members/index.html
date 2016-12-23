@@ -25,6 +25,7 @@
         <tr>
           <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
           <th data-tablesaw-sortable-col>Prénom</th>
+          <th>Masqué ?</th>
           <th>Modifier</th>
           <th>Supprimer</th>
         </tr>
@@ -35,6 +36,15 @@
         <tr>
           <td class="texte">{$member->nom}</td>
           <td class="texte">{$member->prenom}</td>
+
+          {if ($member->masque)}
+            <td><input class="js_masque" type="checkbox" id="{$member->id}" value="" checked="checked"></td>
+
+          {else}
+            <td><input class="js_masque" type="checkbox" id="{$member->id}" value=""></td>
+
+          {/if}
+
           <td><a href="member_controller.php?action=edit&id={$member->id}" class="edit" title="Modifier ce stagiaire"></a></td>
           <td><a href="member_controller.php?action=destroy&id={$member->id}" class="bin" title="Supprimer ce stagiaire" data-warning="Tu vas supprimer ce stagiaire et toutes ses inscriptions stage associées. T'es sûr de ton coup ?"></a></td>
         </tr>
@@ -45,6 +55,7 @@
     <script src="../assets/javascripts/jquery-2.2.3.min.js"></script>
     <script src="../assets/javascripts/jquery-ui-1.11.4.custom/jquery.ui.datepicker-fr.min.js"></script>
     <script src="../assets/javascripts/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+    <script src="../assets/javascripts/members.js"></script>
     <script src="../assets/javascripts/tablesaw.js"></script>
     <script src="../assets/javascripts/application.js"></script>
   </body>

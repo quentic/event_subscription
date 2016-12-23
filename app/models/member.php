@@ -27,7 +27,7 @@ class Member{
 
   # constructeur avec 1 paramètre
   public function __construct1($id){
-    $this->id = $_GET['id'];
+    $this->id = $id;
 
     if (!empty($_POST)) {
       # Récupère les données du member/stagiaire via le $_POST
@@ -75,6 +75,16 @@ class Member{
                 email='$this->email', telfixe='$this->telfixe', telportable='$this->telportable',
                 niveau='$this->niveau', photo='$this->photo', observation='$this->observation', date_adh='$this->date_adh',
                 mono='$this->mono', diplome='$this->diplome', photo2='$this->photo2'
+              WHERE
+                id=$this->id";
+    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    }
+
+  # met à jour l'état de masquage d'un membre/stagiaire dans la base
+  function update_masque(){
+    $query = "UPDATE members
+              SET
+                masque='$this->masque'
               WHERE
                 id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);

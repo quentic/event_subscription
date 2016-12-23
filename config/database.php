@@ -3,7 +3,7 @@
   // Connexion et sélection de la base
   $hostname = 'localhost';
   $username = 'root';
-  $password = 'root';
+  $password = 'Pass123.';
   $db_name = 'o2';
 
   $conn = mysql_connect($hostname, $username, $password)

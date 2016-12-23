@@ -24,6 +24,10 @@
         update($smarty, $id);
         break;
 
+      case 'update_masque':
+        update_masque($smarty, $id);
+        break;
+
       case 'destroy':
         destroy($smarty, $id);
         break;

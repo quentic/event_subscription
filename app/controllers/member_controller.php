@@ -62,6 +62,16 @@ require('../models/niveau.php');
         $smarty->display('index.html');
     }
 
+    # Enregistre l'état de masquage d'un member/stagiaire
+    function update_masque($smarty, $id){
+        $member = new Member($id);
+        $member->update_masque();
+
+        # on ré-affiche la liste des stagiaires
+        $smarty->assign('members', $member->all());
+        $smarty->display('index.html');
+    }
+
     # Supprime un member / stagiaire
     function destroy($smarty, $id){
         $member = new Member($id);
