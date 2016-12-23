@@ -27,7 +27,7 @@ class Niveau{
 
   // constructeur avec 1 paramètre
   public function __construct1($id){
-    $this->id = $_GET['id'];
+    $this->id = $id;
 
     if (!empty($_POST)) {
       // Récupère les données du niveau via le $_POST
@@ -76,8 +76,8 @@ class Niveau{
 
   // met à jour un niveau dans la base
   function update(){
-    $query = "UPDATE niveaux 
-              SET numniveau='$this->numniveau', libniveau='$this->libniveau' 
+    $query = "UPDATE niveaux
+              SET numniveau='$this->numniveau', libniveau='$this->libniveau'
               WHERE id=$this->id";
     $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
