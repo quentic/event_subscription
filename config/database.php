@@ -3,20 +3,19 @@
   // Connexion et sélection de la base
   $hostname = 'localhost';
   $username = 'root';
-  $password = 'Pass123.';
+  $password = 'root';
   $db_name = 'o2';
 
-  $conn = mysql_connect($hostname, $username, $password)
-    or die('Impossible de se connecter : ' . mysql_error());
-  //echo 'Connected successfully';
+  $mysqli = new mysqli($hostname, $username, $password, $db_name);
+  if (mysqli_connect_errno($mysqli)) {
+    echo "Echec lors de la connexion à MySQL : " . mysqli_connect_error();
+  }
 
-  mysql_select_db($db_name) or die('Impossible de sélectionner la base de données');
-
-  mysql_query("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'", $conn);
+  $mysqli->query("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
 
   // database table creation
   function database_table_init(){
-  	mysql_query("
+  	$mysqli->query("
       SET NAMES utf8;
       SET foreign_key_checks = 0;
       SET time_zone = 'SYSTEM';

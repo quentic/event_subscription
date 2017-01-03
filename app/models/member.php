@@ -27,6 +27,8 @@ class Member{
 
   # constructeur avec 1 paramètre
   public function __construct1($id){
+    global $mysqli;
+
     $this->id = $id;
 
     if (!empty($_POST)) {
@@ -36,8 +38,8 @@ class Member{
     } else {
       # Récupère les données du member/stagiaire via son id
       $query = "SELECT * FROM members WHERE id=$id";
-      $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
-      $member = mysql_fetch_array($result);
+      $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
+      $member = $result->fetch_array();
 
       $this->init($member);
     }
@@ -45,11 +47,13 @@ class Member{
 
   # Sélectionne tous les members/stagiaires
   function all() {
-    $query = 'SELECT * FROM members ORDER BY nom, prenom ASC';;
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+    global $mysqli;
+
+    $query = 'SELECT * FROM members ORDER BY nom, prenom ASC';
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
     $t_result = [];
 
-    while ($line = mysql_fetch_object($result)) {
+    while ($line = $result->fetch_object()) {
       $t_result[] = $line;
     }
     return $t_result;
@@ -57,17 +61,21 @@ class Member{
 
   # enregistrer un nouveau membre/stagiaire dans la base
   function save(){
+    global $mysqli;
+
     $query = "INSERT INTO members (nom, prenom, datenaissance, adresse, cp, ville, email, telfixe, telportable, niveau, photo, observation, date_adh, mono, diplome, photo2)
               VALUES ('$this->nom', '$this->prenom', '$this->datenaissance',
                       '$this->adresse', '$this->cp', '$this->ville',
                       '$this->email', '$this->telfixe', '$this->telportable',
                       '$this->niveau', '$this->photo', '$this->observation', '$this->date_adh',
                       '$this->mono', '$this->diplome', '$this->photo2')";
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
   # met à jour un membre/stagiaire dans la base
   function update(){
+    global $mysqli;
+
     $query = "UPDATE members
               SET
                 masque='$this->masque', nom='$this->nom', prenom='$this->prenom', datenaissance='$this->datenaissance',
@@ -77,23 +85,27 @@ class Member{
                 mono='$this->mono', diplome='$this->diplome', photo2='$this->photo2'
               WHERE
                 id=$this->id";
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
   # met à jour l'état de masquage d'un membre/stagiaire dans la base
   function update_masque(){
+    global $mysqli;
+
     $query = "UPDATE members
               SET
                 masque='$this->masque'
               WHERE
                 id=$this->id";
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
   # supprimer un membre/stagiaire de la base
   function destroy(){
+    global $mysqli;
+
     $query = "DELETE FROM members WHERE id=$this->id";
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
   # initialise l'objet avec le tableau fourni en paramètre

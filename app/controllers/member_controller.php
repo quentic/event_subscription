@@ -12,7 +12,9 @@ require('../models/niveau.php');
 
 <?php
     # Liste les stagiaires
-    function index($smarty){
+    function index(){
+      global $smarty;
+
       $member = new Member();
 
       $smarty->assign('members', $member->all());
@@ -20,7 +22,9 @@ require('../models/niveau.php');
     }
 
     # Affiche la page pour créer un nouveau stagiaire
-    function new_m($smarty){
+    function new_m(){
+      global $smarty;
+
       // pour construire la liste déroulante des niveaux
       $niveau = new Niveau();
       $smarty->assign('niveaux', $niveau->all_num_lib());
@@ -29,7 +33,9 @@ require('../models/niveau.php');
     }
 
     # Affiche la page pour modifier un stagiaire
-    function edit($smarty, $id){
+    function edit($id){
+      global $smarty;
+
       $member = new Member($id);
 
       $smarty->assign('member', $member);
@@ -43,43 +49,51 @@ require('../models/niveau.php');
     }
 
     # Enregistre un member/stagiaire
-    function create($smarty){
-        $member = new Member();
-        $member->save();
+    function create(){
+      global $smarty;
 
-        # on ré-affiche la liste des stagiaires
-        $smarty->assign('members', $member->all());
-        $smarty->display('index.html');
+      $member = new Member();
+      $member->save();
+
+      # on ré-affiche la liste des stagiaires
+      $smarty->assign('members', $member->all());
+      $smarty->display('index.html');
     }
 
     # Enregistre les modifications d'un member/stagiaire
-    function update($smarty, $id){
-        $member = new Member($id);
-        $member->update();
+    function update($id){
+      global $smarty;
 
-        # on ré-affiche la liste des stagiaires
-        $smarty->assign('members', $member->all());
-        $smarty->display('index.html');
+      $member = new Member($id);
+      $member->update();
+
+      # on ré-affiche la liste des stagiaires
+      $smarty->assign('members', $member->all());
+      $smarty->display('index.html');
     }
 
     # Enregistre l'état de masquage d'un member/stagiaire
-    function update_masque($smarty, $id){
-        $member = new Member($id);
-        $member->update_masque();
+    function update_masque($id){
+      global $smarty;
 
-        # on ré-affiche la liste des stagiaires
-        $smarty->assign('members', $member->all());
-        $smarty->display('index.html');
+      $member = new Member($id);
+      $member->update_masque();
+
+      # on ré-affiche la liste des stagiaires
+      $smarty->assign('members', $member->all());
+      $smarty->display('index.html');
     }
 
     # Supprime un member / stagiaire
-    function destroy($smarty, $id){
-        $member = new Member($id);
-        $member->destroy();
+    function destroy($id){
+      global $smarty;
 
-        # on ré-affiche la liste des stagiaires
-        $smarty->assign('members', $member->all());
-        $smarty->display('index.html');
+      $member = new Member($id);
+      $member->destroy();
+
+      # on ré-affiche la liste des stagiaires
+      $smarty->assign('members', $member->all());
+      $smarty->display('index.html');
     }
 
 ?>

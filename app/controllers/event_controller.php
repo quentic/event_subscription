@@ -2,65 +2,77 @@
 require('../../config/database.php');
 require('../../config/smarty.php');
 
-# initialisations propres à ce controleur
-# Accès aux vues
+# initialization specific to this controller
+# Access to views
 $smarty->setTemplateDir('../../app/views/events');
-# Accès au modèle
+# Access to model
 require('../models/event.php');
 ?>
 
 <?php
 
-    # Liste les stages
-    function index($smarty){
-        $event = new Event();
+  # Displays events
+  function index(){
+	  global $smarty;
 
-        $smarty->assign('events', $event->all());
-        $smarty->display('index.html');
-    }
+    $event = new Event();
 
-    # Affiche la page de création d'un nouveau stage
-    function new_m($smarty){
-        $smarty->display('new.html');
-    }
+    $smarty->assign('events', $event->all());
+    $smarty->display('index.html');
+  }
 
-    # Affiche la page de modification d'un stage
-    function edit($smarty, $id){
-      $event = new Event($id);
+  # Displays new event page
+  function new_m(){
+	  global $smarty;
 
-      $smarty->assign('event', $event);
-      $smarty->display('edit.html');
-    }
+    $smarty->display('new.html');
+  }
 
-    # Enregistre un event / stage
-    function create($smarty){
-        $event = new Event();
-        $event->save();
+  # Displays event edit page
+  function edit($id){
+    global $smarty;
 
-        # on ré-affiche la liste des stages
-        $smarty->assign('events', $event->all());
-        $smarty->display('index.html');
-    }
+    $event = new Event($id);
 
-    # Enregistre les modifications d'un event / stage
-    function update($smarty, $id){
-        $event = new Event($id);
-        $event->update();
+    $smarty->assign('event', $event);
+    $smarty->display('edit.html');
+  }
 
-        # on ré-affiche la liste des stagiaires
-        $smarty->assign('events', $event->all());
-        $smarty->display('index.html');
-    }
+  # Saves a new event
+  function create(){
+    global $smarty;
 
-    # Supprime un event / stage
-    function destroy($smarty, $id){
-        $event = new Event($id);
-        $event->destroy();
+    $event = new Event();
+    $event->save();
 
-        # on ré-affiche la liste des stages
-        $smarty->assign('events', $event->all());
-        $smarty->display('index.html');
-    }
+    # on ré-affiche la liste des stages
+    $smarty->assign('events', $event->all());
+    $smarty->display('index.html');
+  }
+
+  # Updates an event
+  function update($id){
+    global $smarty;
+
+    $event = new Event($id);
+    $event->update();
+
+    # Displays list of events again
+    $smarty->assign('events', $event->all());
+    $smarty->display('index.html');
+  }
+
+  # Destroys an event
+  function destroy($id){
+    global $smarty;
+
+    $event = new Event($id);
+    $event->destroy();
+
+    # Displays list of events again
+    $smarty->assign('events', $event->all());
+    $smarty->display('index.html');
+  }
 
 ?>
 

@@ -19,6 +19,8 @@ class EventsMember{
 
   # constructeur avec 1 paramètre (un tableau de données)
   public function __construct1($t_data){
+    global $mysqli;
+
     # Récupère les données d'inscription via $_POST (destroy)
     # ou via $_GET(edit)
     $this->id = $t_data['id'];
@@ -33,8 +35,8 @@ class EventsMember{
                 INNER JOIN events ON events_members.event_id = events.id
                 INNER JOIN members ON events_members.member_id = members.id
                 WHERE events_members.id=$this->id";
-      $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
-      $events_member = mysql_fetch_array($result);
+      $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
+      $events_member = $result->fetch_array();
 
       $this->init($events_member);
 
@@ -58,6 +60,8 @@ class EventsMember{
 
   # Sélectionner toutes les inscriptions
   function all($events_actifs) {
+    global $mysqli;
+
     $subscriptions = [];
     $select = [];
     $dernier_stage_id = $events_actifs[0]->id;
@@ -75,38 +79,74 @@ class EventsMember{
       }
     $query .= join(', ', $select);
 
-    $query .= ', member_id, am.nom, am.prenom';
+    $query .= ', am.id AS member_id, am.nom, am.prenom';
     $query .= " FROM active_members am
                 LEFT JOIN events_members ON events_members.member_id = am.id
                 GROUP BY am.id
                 ORDER BY inscrit_dernier_stage DESC, am.nom ASC, am.prenom ASC";
 
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
 
-    while ($subscription = mysql_fetch_array($result)) {
+    while ($subscription = $result->fetch_array()) {
       $subscriptions[] = $subscription;
     }
 
     return $subscriptions;
   }
 
-  # Inscript un membre à un event/stage
+  # Inscrit un membre à un event/stage
   function associer() {
-    $result = mysql_query("INSERT INTO events_members (event_id, member_id) VALUE ($this->event_id, $this->member_id)");
+    global $mysqli;
+
+    $result = $mysqli->query("INSERT INTO events_members (event_id, member_id) VALUE ($this->event_id, $this->member_id)");
+
+    $result = $mysqli->query("SELECT id FROM events_members ORDER BY id DESC LIMIT 1");
+    $subscription_id = $result->fetch_row()[0];
+
+    return $subscription_id;
     }
 
-  # Désinscript un membre d'un event/stage
+  # Désinscrit un membre d'un event/stage
   function dissocier() {
-    $result = mysql_query("DELETE FROM events_members WHERE id=$this->id");
+    global $mysqli;
+
+    $result = $mysqli->query("DELETE FROM events_members WHERE event_id=$this->event_id AND member_id=$this->member_id");
     }
 
   # met à jour une inscription dans la base
   function update(){
+    global $mysqli;
+
     $query = "UPDATE events_members
               SET moniteur='$this->moniteur', pieton='$this->pieton', materiel='$this->materiel'
               WHERE id=$this->id";
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
+
+  # Fournit les inscrits au stage
+  function inscrits_au_stage($event_id){
+    global $mysqli;
+
+    $liste_emails = "";
+
+    # Construction de la requête toutes les inscription des membres actifs aux stages actifs
+    $query = 'SELECT ';
+    $query .= ' m.email';
+    $query .= " FROM members m
+                INNER JOIN events_members em ON em.member_id = m.id
+                WHERE em.event_id = $event_id
+                AND m.email != ''
+                ORDER BY m.nom
+                ";
+
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
+
+    while ($subscription = $result->fetch_array()) {
+      $liste_emails .= $subscription["email"] . ";";
+    }
+
+    return $liste_emails;
+  }
 
   # initialise l'objet avec le tableau fourni en paramètre
   protected function init($t_init){

@@ -27,6 +27,8 @@ class Niveau{
 
   // constructeur avec 1 paramètre
   public function __construct1($id){
+    global $mysqli;
+
     $this->id = $id;
 
     if (!empty($_POST)) {
@@ -36,7 +38,7 @@ class Niveau{
     } else {
       // Récupère les données du niveau via son id
       $query = "SELECT * FROM niveaux WHERE id=$id";
-      $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+      $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
       $niveau = mysql_fetch_array($result);
 
       $this->init($niveau);
@@ -45,11 +47,13 @@ class Niveau{
 
   // Sélectionner tous les niveaux
   function all() {
+    global $mysqli;
+
     $query = 'SELECT * FROM niveaux ORDER BY numniveau ASC';;
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
     $t_result = [];
 
-    while ($line = mysql_fetch_object($result)) {
+    while ($line = $result->fetch_object()) {
       $t_result[] = $line;
     }
     return $t_result;
@@ -57,11 +61,13 @@ class Niveau{
 
   // Sélectionner tous les niveaux : résultat = tableau associatif numniveau => libniveau
   function all_num_lib() {
+    global $mysqli;
+
     $query = 'SELECT * FROM niveaux ORDER BY numniveau ASC';;
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
     $t_result = [];
 
-    while ($line = mysql_fetch_object($result)) {
+    while ($line = $result->fetch_object()) {
       $t_result[$line->numniveau] = $line->libniveau;
     }
     return $t_result;
@@ -69,23 +75,29 @@ class Niveau{
 
   // enregistrer un nouveau niveau dans la base
   function save(){
+    global $mysqli;
+
     $query = "INSERT INTO niveaux (numniveau, libniveau)
               VALUES ('$this->numniveau', '$this->libniveau')";
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
   // met à jour un niveau dans la base
   function update(){
+    global $mysqli;
+
     $query = "UPDATE niveaux
               SET numniveau='$this->numniveau', libniveau='$this->libniveau'
               WHERE id=$this->id";
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
   // supprimer un niveau de la base
   function destroy(){
+    global $mysqli;
+
     $query = "DELETE FROM niveaux WHERE id=$this->id";
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
   # initialise l'objet avec le tableau fourni en paramètre

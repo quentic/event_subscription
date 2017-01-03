@@ -10,7 +10,9 @@ $smarty->setTemplateDir('../../app/views/niveaux');
 
 <?php
     // Liste les niveaux
-    function index($smarty){
+    function index(){
+      global $smarty;
+
       $niveau = new Niveau();
 
       $smarty->assign('niveaux', $niveau->all());
@@ -18,12 +20,16 @@ $smarty->setTemplateDir('../../app/views/niveaux');
     }
 
     // Affiche le formulaire pour créer un nouveau niveau
-    function new_m($smarty){
+    function new_m(){
+      global $smarty;
+
       $smarty->display('new.html');
     }
 
     // Affiche le formulaire pour modifier un niveau
-    function edit($smarty, $id){
+    function edit($id){
+      global $smarty;
+
       $niveau = new Niveau($id);
 
       $smarty->assign('niveau', $niveau);
@@ -31,33 +37,39 @@ $smarty->setTemplateDir('../../app/views/niveaux');
     }
 
     // Enregistre un niveau
-    function create($smarty){
-        $niveau = new Niveau();
-        $niveau->save();
+    function create(){
+      global $smarty;
 
-        // on ré-affiche la liste des stagiaires
-        $smarty->assign('niveaux', $niveau->all());
-        $smarty->display('index.html');
+      $niveau = new Niveau();
+      $niveau->save();
+
+      // on ré-affiche la liste des stagiaires
+      $smarty->assign('niveaux', $niveau->all());
+      $smarty->display('index.html');
     }
 
     // Enregistre les modifications d'un niveau
-    function update($smarty, $id){
-        $niveau = new Niveau($id);
-        $niveau->update();
+    function update($id){
+      global $smarty;
 
-        // on ré-affiche la liste des niveaux
-        $smarty->assign('niveaux', $niveau->all());
-        $smarty->display('index.html');
+      $niveau = new Niveau($id);
+      $niveau->update();
+
+      // on ré-affiche la liste des niveaux
+      $smarty->assign('niveaux', $niveau->all());
+      $smarty->display('index.html');
     }
 
     // Supprime un niveau
-    function destroy($smarty, $id){
-        $niveau = new Niveau($id);
-        $niveau->destroy();
+    function destroy($id){
+      global $smarty;
 
-        // on ré-affiche la liste des stagiaires
-        $smarty->assign('niveaux', $niveau->all());
-        $smarty->display('index.html');
+      $niveau = new Niveau($id);
+      $niveau->destroy();
+
+      // on ré-affiche la liste des stagiaires
+      $smarty->assign('niveaux', $niveau->all());
+      $smarty->display('index.html');
     }
 ?>
 

@@ -9,32 +9,32 @@
     switch ($action) {
       case 'new':
         # Affiche la page new.html
-        new_m($smarty);
+        new_m();
         break;
 
       case 'create':
-        create($smarty);
+        create();
         break;
 
       case 'edit':
-        edit($smarty, $id);
+        edit($id);
         break;
 
       case 'update':
-        update($smarty, $id);
+        update($id);
         break;
 
       case 'update_masque':
-        update_masque($smarty, $id);
+        update_masque($id);
         break;
 
       case 'destroy':
-        destroy($smarty, $id);
+        destroy($id);
         break;
 
       default:
         # Affiche la page index par défaut
-        index($smarty);
+        index();
     }
 
 ?>

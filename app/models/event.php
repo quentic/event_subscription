@@ -26,6 +26,8 @@ class Event{
 
   # constructeur avec 1 paramètre
   public function __construct1($id){
+    global $mysqli;
+
     $this->id = $id;
 
     if (!empty($_POST)) {
@@ -35,8 +37,8 @@ class Event{
     } else {
       # Récupère les données du event/stage via son id
       $query = "SELECT * FROM events WHERE id=$id";
-      $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
-      $member = mysql_fetch_array($result);
+      $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
+      $member = $result->fetch_array();
 
       $this->init($member);
     }
@@ -44,11 +46,13 @@ class Event{
 
   # Sélectionner tous les stages
   function all() {
+    global $mysqli;
+
     $query = 'SELECT * FROM events ORDER BY id DESC';
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
     $t_result = [];
 
-    while ($line = mysql_fetch_object($result)) {
+    while ($line = $result->fetch_object()) {
       $t_result[] = $line;
     }
     return $t_result;
@@ -56,11 +60,13 @@ class Event{
 
   # Sélectionner tous les stages actifs
   function actifs() {
+    global $mysqli;
+
     $query = 'SELECT * FROM active_events ORDER BY id DESC';
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error());
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
     $t_result = [];
 
-    while ($line = mysql_fetch_object($result)) {
+    while ($line = $result->fetch_object()) {
       $t_result[] = $line;
     }
     return $t_result;
@@ -68,27 +74,33 @@ class Event{
 
   # enregistrer un nouveau event/stage dans la base
   function save(){
+    global $mysqli;
+
     $query = "INSERT INTO events (lieu, datedebut, datefin, placedispo, observation, titre, descriptif, cpterendu, image)
               VALUES ('$this->lieu', '$this->datedebut', '$this->datefin',
               '$this->placedispo', '$this->observation', '$this->titre', '$this->descriptif',
               '$this->cpterendu', '$this->image')";
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
 
   # met à jour un event/stage dans la base
   function update(){
+    global $mysqli;
+
     $query = "UPDATE events
               SET masque='$this->masque', lieu='$this->lieu', datedebut='$this->datedebut', datefin='$this->datefin',
               placedispo='$this->placedispo', observation='$this->observation', titre='$this->titre', descriptif='$this->descriptif',
               cpterendu='$this->cpterendu', image='$this->image'
               WHERE id=$this->id";
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
 
    # supprimer un event/stage de la base
   function destroy(){
+    global $mysqli;
+
     $query = "DELETE FROM events WHERE id=$this->id";
-    $result = mysql_query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
 
   # initialise l'objet avec le tableau fourni en paramètre
