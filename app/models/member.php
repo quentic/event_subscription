@@ -16,12 +16,14 @@ class Member{
   # constructeur sans paramètre
   public function __construct0(){
     if (!empty($_POST)) {
-      # Récupère les données du event/stage via $_POST (new)
+      # Récupère les données du event/stage via $_POST (action : create)
       $this->init($_POST);
 
     } else {
+      # Initialise un nouvel adhérent (action : new)
       $this->init([]);
-
+      # Par défaut, il adhère aujourd'hui
+      $this->date_adh = date("Y-m-d");
     }
   }
 
@@ -32,11 +34,11 @@ class Member{
     $this->id = $id;
 
     if (!empty($_POST)) {
-      # Récupère les données du member/stagiaire via le $_POST
+      # Récupère les données du member/stagiaire via le $_POST (action : update)
       $this->init($_POST);
 
     } else {
-      # Récupère les données du member/stagiaire via son id
+      # Récupère les données du member/stagiaire via son id (action : edit)
       $query = "SELECT * FROM members WHERE id=$id";
       $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
       $member = $result->fetch_array();

@@ -25,6 +25,9 @@ require('../models/niveau.php');
     function new_m(){
       global $smarty;
 
+      $member = new Member();
+      $smarty->assign('member', $member);
+
       // pour construire la liste déroulante des niveaux
       $niveau = new Niveau();
       $smarty->assign('niveaux', $niveau->all_num_lib());
