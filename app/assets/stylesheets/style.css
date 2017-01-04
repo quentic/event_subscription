@@ -24,6 +24,7 @@ nav a{
 table{
   border-collapse:collapse;
   border:none;
+  margin:1%;
 }
 tbody tr:nth-child(odd){
   background:#edf4f9;
@@ -38,6 +39,9 @@ td.texte{text-align:left}
 
 form{
   padding:5%;
+}
+.subscriptions{
+  padding:0 2%;
 }
 label{
   display:inline-block;
