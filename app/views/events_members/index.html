@@ -41,7 +41,7 @@
               <td class="inscription">
                 <span class="inscrit_pour_tri">2</span>
                 <input type="checkbox" id="{$subscription[$i+1]}" data-member_id="{$subscription['member_id']}" data-event_id="{$events[$i]->id}" value="" checked="checked">
-                <a href="events_member_controller.php?action=edit&id={$subscription[$i]}" class="edit"></a>
+                <a href="events_member_controller.php?action=edit&id={$subscription[$i+1]}" class="edit"></a>
               </td>
             {else}
               <!-- le membre n'est pas inscrit à ce stage -->
