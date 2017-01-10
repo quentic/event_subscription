@@ -1,14 +1,14 @@
 <?php
-    # Module d'aiguillage des actions commun à tous les controleurs
+    # Module common to all controllers : calls the method corresponding to the action required
 
-    # récupère les paramètres action et id dans l'URL, s'ils existent
+    # get action and id in URL, if present
     $action = isset($_GET['action']) ? $_GET['action'] : '';
     $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-    # analyse l'action demandée
+    # analyze action required
     switch ($action) {
       case 'new':
-        # Affiche la page new.html
+        # Displays the new.html page
         new_m();
         break;
 
@@ -33,7 +33,7 @@
         break;
 
       default:
-        # Affiche la page index par défaut
+        # By default, displays the index page
         index();
     }
 

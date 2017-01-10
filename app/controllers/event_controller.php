@@ -2,7 +2,7 @@
 require('../../config/database.php');
 require('../../config/smarty.php');
 
-# initialization specific to this controller
+# Initializations specific to this controller
 # Access to views
 $smarty->setTemplateDir('../../app/views/events');
 # Access to model

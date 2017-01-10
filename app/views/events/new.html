@@ -3,7 +3,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <title>Oxygène : Nouveau stage</title>
+    <title>New event</title>
     <link rel="stylesheet" href="../assets/stylesheets/style.css" />
     <link rel="stylesheet" href="../assets/stylesheets/jquery-ui-1.11.4.custom/jquery-ui.css" />
   </head>
@@ -11,50 +11,26 @@
   <body>
     <nav>
       <ul>
-        <li><a href="../controllers/event_controller.php">Les stages</a></li>
-        <li><a href="../controllers/member_controller.php">Les stagiaires</a></li>
-        <li><a href="../controllers/events_member_controller.php">Les inscriptions</a></li>
+        <li><a href="../controllers/event_controller.php">Events</a></li>
+        <li><a href="../controllers/member_controller.php">Members</a></li>
+        <li><a href="../controllers/events_member_controller.php">Subscriptions</a></li>
       </ul>
     </nav>
 
-    <h1>Nouveau stage</h1>
+    <h1>New event</h1>
 
     <form action="../controllers/event_controller.php?action=create" method="POST">
       <div>
-        <label>Nom</label>
+        <label>Event name</label>
         <input type="text" name="lieu" value="{$event->lieu}" />
       </div>
       <div>
-        <label>Début du stage</label>
+        <label>From</label>
         <input id="datedebut" type="date" name="datedebut" value="{$event->datedebut}" />
       </div>
       <div>
-        <label>Fin du stage</label>
+        <label>To</label>
         <input id="datefin" type="date" name="datefin" value="{$event->datefin}" />
-      </div>
-      <div>
-        <label>Nombre de places</label>
-        <input type="text" name="placedispo" value="{$event->placedispo}" />
-      </div>
-      <div>
-        <label>Titre</label>
-        <input type="text" name="titre" value="{$event->titre}" />
-      </div>
-      <div>
-        <label>Descriptif</label>
-        <textarea name="descriptif" cols="80">{$event->descriptif}</textarea>
-      </div>
-      <div>
-        <label>Observations</label>
-        <textarea name="observation" cols="80">{$event->observation}</textarea>
-      </div>
-      <div>
-        <label>Compte-rendu</label>
-        <textarea name="cpterendu" cols="80">{$event->cpterendu}</textarea>
-      </div>
-      <div>
-        <label>Image</label>
-        <input type="text" name="image" value="{$event->image}" />
       </div>
 
       <input type="submit">

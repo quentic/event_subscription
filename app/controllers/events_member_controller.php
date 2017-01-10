@@ -2,10 +2,10 @@
 require('../../config/database.php');
 require('../../config/smarty.php');
 
-# initialisations propres à ce controleur
-# Accès aux vues
+# Initializations specific to this controller
+# Access to views
 $smarty->setTemplateDir('../../app/views/events_members');
-# Accès aux modèles
+# Access to model
 require('../models/event.php');
 require('../models/events_member.php');
 ?>
@@ -56,38 +56,10 @@ require('../models/events_member.php');
     header( "Location: events_member_controller.php" );
   }
 
-  # détruit l'association membre <=> stage
+  # Destroys subscription
   function destroy(){
-    $desinscription = new EventsMember($_POST['event_id'], $_POST['member_id']);
-    $desinscription->dissocier();
-  }
-
-  function liste_emails(){
-    global $smarty;
-
-    # Récupère le stage dont on veut la liste des inscrits
-    $event = new Event($_GET["event_id"]);
-
-    # Récupère les inscriptions
-    $events_member = new EventsMember();
-    $smarty->assign('liste_emails', $events_member->inscrits_au_stage( $event->id ));
-    $smarty->display('liste_emails.html');
-  }
-
-?>
-
-<?php
-  # récupère les paramètres action et id dans l'URL, s'ils existent
-  $action = isset($_GET['action']) ? $_GET['action'] : '';
-  $id = isset($_GET['id']) ? $_GET['id'] : '';
-
-  # analyse l'action demandée
-  switch ($action) {
-    case 'liste_emails':
-      liste_emails();
-      break;
-    default:
-      require('application.php');
+    $events_member = new EventsMember($_POST['event_id'], $_POST['member_id']);
+    $events_member->dissocier();
   }
 
 ?>

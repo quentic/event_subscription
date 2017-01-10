@@ -5,13 +5,13 @@ $(document).ready(function() {
     case_a_cocher = $(this)
     inscription = case_a_cocher.is(':checked');
 
-    // pour l'inscription event_id et member_id sont stockés dans la balise input de la case à cocher
+    // for subscription event_id and member_id must be stored in the input tag of checkbox
     event_id = case_a_cocher.attr("data-event_id");
     member_id = case_a_cocher.attr("data-member_id");
 
     if (inscription) {
 
-      // Inscription
+      // Subscription
       $.post("events_member_controller.php?action=create",
           {
             event_id: event_id,
@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     } else {
 
-      // Désinscription
+      // Cancel subscription
       $.post("events_member_controller.php?action=destroy",
           {
             event_id: event_id,

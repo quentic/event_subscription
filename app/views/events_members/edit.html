@@ -3,32 +3,24 @@
 
   <head>
     <meta charset="utf-8" />
-    <title>Oxygène : Modifier une inscription</title>
+    <title>Edit a subscription</title>
     <link rel="stylesheet" href="../assets/stylesheets/style.css" />
   </head>
 
   <body>
     <nav>
       <ul>
-        <li><a href="../controllers/event_controller.php">Les stages</a></li>
-        <li><a href="../controllers/member_controller.php">Les stagiaires</a></li>
-        <li><a href="../controllers/events_member_controller.php">Les inscriptions</a></li>
+        <li><a href="../controllers/event_controller.php">Events</a></li>
+        <li><a href="../controllers/member_controller.php">Members</a></li>
+        <li><a href="../controllers/events_member_controller.php">Subscriptions</a></li>
       </ul>
     </nav>
 
-    <h1>Modifier l'inscription de {$events_member->prenom} {$events_member->nom}<br />pour le stage&nbsp;: {$events_member->lieu}</h1>
+    <h1>Edit the subscription of {$events_member->prenom} {$events_member->nom}<br />for the event&nbsp;: {$events_member->lieu}</h1>
 
     <form action="../controllers/events_member_controller.php?action=update&id={$events_member->id}" method="post">
       <div>
-        <label>moniteur</label>
-        <input type="checkbox" name="moniteur" value="1" {($events_member->moniteur == '1') ? "checked='checked'" : ''} />
-      </div>
-      <div>
-        <label>piéton</label>
-        <input type="checkbox" name="pieton" value="1" {($events_member->pieton == '1') ? "checked='checked'" : ''} />
-      </div>
-      <div>
-        <label>matériel</label>
+        <label>Equipment</label>
         <input type="text" name="materiel" value="{$events_member->materiel}" />
       </div>
 

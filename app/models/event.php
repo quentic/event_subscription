@@ -1,5 +1,4 @@
 <?php
-# un stage auquel peuvent s'inscrire des stagiaires
 # an event which members can subscribe to
 class Event{
 
@@ -12,30 +11,31 @@ class Event{
     }
   }
 
-  # constructeur sans paramètre
+  # constructor with no parameter
   public function __construct0(){
     if (!empty($_POST)) {
-      # Récupère les données du event/stage via $_POST (new)
+      # Gets event data by $_POST (action: new)
       $this->init($_POST);
 
     } else {
+      # Initializes a new event (action : new)
       $this->init([]);
 
     }
   }
 
-  # constructeur avec 1 paramètre
+  # constructor with 1 parameter
   public function __construct1($id){
     global $mysqli;
 
     $this->id = $id;
 
     if (!empty($_POST)) {
-      # Récupère les données du event/stage via $_POST (update)
+      # Gets event data via $_POST (action: update)
       $this->init($_POST);
 
     } else {
-      # Récupère les données du event/stage via son id
+      # Gets event data by id (action : edit)
       $query = "SELECT * FROM events WHERE id=$id";
       $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
       $member = $result->fetch_array();
@@ -44,7 +44,7 @@ class Event{
     }
   }
 
-  # Sélectionner tous les stages
+  # Select all events
   function all() {
     global $mysqli;
 
@@ -58,7 +58,7 @@ class Event{
     return $t_result;
   }
 
-  # Sélectionner tous les stages actifs
+  # Select all active events
   function actifs() {
     global $mysqli;
 
@@ -72,7 +72,7 @@ class Event{
     return $t_result;
   }
 
-  # enregistrer un nouveau event/stage dans la base
+  # saves new event in database
   function save(){
     global $mysqli;
 
@@ -83,7 +83,7 @@ class Event{
     $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
 
-  # met à jour un event/stage dans la base
+  # updates new event in database
   function update(){
     global $mysqli;
 
@@ -95,7 +95,7 @@ class Event{
     $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
 
-   # supprimer un event/stage de la base
+   # destroys an event in database
   function destroy(){
     global $mysqli;
 
@@ -103,7 +103,7 @@ class Event{
     $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
   }
 
-  # initialise l'objet avec le tableau fourni en paramètre
+  # initialize objet with array given in parameter
   protected function init($t_init){
     $this->masque = $t_init['masque'];
     $this->lieu = $t_init['lieu' ];

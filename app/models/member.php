@@ -1,7 +1,6 @@
 <?php
 
-# un stagiaire qui peut s'inscrire à un stage
-# a member that can subscribe to an event
+# a member who can subscribe to an event
 class Member{
 
   public function __construct(){
@@ -13,32 +12,32 @@ class Member{
     }
   }
 
-  # constructeur sans paramètre
+  # constructor with no parameter
   public function __construct0(){
     if (!empty($_POST)) {
-      # Récupère les données du event/stage via $_POST (action : create)
+      # Gets event data by $_POST (action : create)
       $this->init($_POST);
 
     } else {
-      # Initialise un nouvel adhérent (action : new)
+      # Initializes a new member (action : new)
       $this->init([]);
-      # Par défaut, il adhère aujourd'hui
+      # By default, he subscribes today
       $this->date_adh = date("Y-m-d");
     }
   }
 
-  # constructeur avec 1 paramètre
+  # constructor with 1 parameter
   public function __construct1($id){
     global $mysqli;
 
     $this->id = $id;
 
     if (!empty($_POST)) {
-      # Récupère les données du member/stagiaire via le $_POST (action : update)
+      # Gets member data via $_POST (action : update)
       $this->init($_POST);
 
     } else {
-      # Récupère les données du member/stagiaire via son id (action : edit)
+      # Gets member data by id (action : edit)
       $query = "SELECT * FROM members WHERE id=$id";
       $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
       $member = $result->fetch_array();
@@ -47,7 +46,7 @@ class Member{
     }
   }
 
-  # Sélectionne tous les members/stagiaires
+  # Select all members
   function all() {
     global $mysqli;
 
@@ -61,36 +60,28 @@ class Member{
     return $t_result;
   }
 
-  # enregistrer un nouveau membre/stagiaire dans la base
+  # saves new member in database
   function save(){
     global $mysqli;
 
-    $query = "INSERT INTO members (nom, prenom, datenaissance, adresse, cp, ville, email, telfixe, telportable, niveau, photo, observation, date_adh, mono, diplome, photo2)
-              VALUES ('$this->nom', '$this->prenom', '$this->datenaissance',
-                      '$this->adresse', '$this->cp', '$this->ville',
-                      '$this->email', '$this->telfixe', '$this->telportable',
-                      '$this->niveau', '$this->photo', '$this->observation', '$this->date_adh',
-                      '$this->mono', '$this->diplome', '$this->photo2')";
+    $query = "INSERT INTO members (nom, prenom)
+              VALUES ('$this->nom', '$this->prenom')";
     $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
-  # met à jour un membre/stagiaire dans la base
+  # updates new member in database
   function update(){
     global $mysqli;
 
     $query = "UPDATE members
               SET
-                masque='$this->masque', nom='$this->nom', prenom='$this->prenom', datenaissance='$this->datenaissance',
-                adresse='$this->adresse', cp='$this->cp', ville='$this->ville',
-                email='$this->email', telfixe='$this->telfixe', telportable='$this->telportable',
-                niveau='$this->niveau', photo='$this->photo', observation='$this->observation', date_adh='$this->date_adh',
-                mono='$this->mono', diplome='$this->diplome', photo2='$this->photo2'
+                masque='$this->masque', nom='$this->nom', prenom='$this->prenom'
               WHERE
                 id=$this->id";
     $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
-  # met à jour l'état de masquage d'un membre/stagiaire dans la base
+  # updates shown/hidden indicator in database
   function update_masque(){
     global $mysqli;
 
@@ -102,7 +93,7 @@ class Member{
     $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
-  # supprimer un membre/stagiaire de la base
+   # destroys a member in database
   function destroy(){
     global $mysqli;
 
@@ -110,25 +101,11 @@ class Member{
     $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
-  # initialise l'objet avec le tableau fourni en paramètre
+  # initialize objet with array given in parameter
   protected function init($t_init){
     $this->masque         = $t_init['masque'];
     $this->nom            = $t_init['nom' ];
     $this->prenom         = $t_init['prenom'];
-    $this->datenaissance  = $t_init['datenaissance'];
-    $this->adresse        = $t_init['adresse'];
-    $this->cp             = $t_init['cp'];
-    $this->ville          = $t_init['ville'];
-    $this->email          = $t_init['email'];
-    $this->telfixe        = $t_init['telfixe'];
-    $this->telportable    = $t_init['telportable'];
-    $this->niveau         = $t_init['niveau'];
-    $this->photo          = $t_init['photo'];
-    $this->observation    = $t_init['observation'];
-    $this->date_adh       = $t_init['date_adh'];
-    $this->mono           = $t_init['mono'];
-    $this->diplome        = $t_init['diplome'];
-    $this->photo2         = $t_init['photo2'];
   }
 
 }

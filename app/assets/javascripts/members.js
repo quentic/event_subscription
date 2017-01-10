@@ -2,7 +2,7 @@
 $(document).ready(function() {
 	$("input.js_masque").click(function(){
 
-    // member_id est stocké dans l'id de la balise input de la case à cocher
+    // member_id is stored in the id of checkbox input tag
     member_id = $(this).attr("id");
 
 		masquer = $(this).is(':checked');

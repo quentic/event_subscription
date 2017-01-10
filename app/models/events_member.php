@@ -11,27 +11,27 @@ class EventsMember{
     }
   }
 
-  # constructeur sans paramètre
+  # constructor with no parameter
   public function __construct0(){
     $this->event_id = '';
     $this->member_id = '';
   }
 
-  # constructeur avec 1 paramètre (un tableau de données)
+  # constructor with 1 parameter (an array of data)
   public function __construct1($t_data){
     global $mysqli;
 
-    # Récupère les données d'inscription via $_POST (destroy)
-    # ou via $_GET(edit)
+    # Gets subscription data via $_POST (destroy)
+    # or via $_GET (edit)
     $this->id = $t_data['id'];
 
     if (!empty($_POST)) {
-      # Récupère les données du event/stage via $_POST (update)
+      # Gets event data via $_POST (update)
       $this->init($_POST);
 
     } else {
-      # Récupère les données de l'inscription via son id
-      $query = "SELECT materiel, moniteur, pieton, nom, prenom, lieu FROM events_members
+      # Gets subscription data by id
+      $query = "SELECT nom, prenom, lieu FROM events_members
                 INNER JOIN events ON events_members.event_id = events.id
                 INNER JOIN members ON events_members.member_id = members.id
                 WHERE events_members.id=$this->id";
@@ -40,7 +40,7 @@ class EventsMember{
 
       $this->init($events_member);
 
-      # bonus : pour l'affichage de la page edit
+      # bonus : to display edit page
       $this->nom = $events_member['nom'];
       $this->prenom = $events_member['prenom'];
       $this->lieu = $events_member['lieu'];
@@ -49,16 +49,16 @@ class EventsMember{
 
   }
 
-  # constructeur avec 2 paramètres (event_id et member_id)
+  # constructor with 2 parameters (event_id and member_id)
   public function __construct2($event_id, $member_id){
 
-    # Récupère les données du stage et du membre à associer
+    # Gets data of event and member to connect
     $this->event_id = $event_id;
     $this->member_id = $member_id;
 
   }
 
-  # Sélectionner toutes les inscriptions
+  # Select all subscriptions
   function all($events_actifs) {
     global $mysqli;
 
@@ -66,14 +66,14 @@ class EventsMember{
     $select = [];
     $dernier_stage_id = $events_actifs[0]->id;
 
-    # Construction de la requête toutes les inscription des membres actifs aux stages actifs
+    # Build query of active members to active events subscriptions
     $query = 'SELECT ';
 
-    # Construit un indicateur d'inscription au dernier stage pour trier sur cette information
+    # Builds a subscription-to-last-event indicator to be able to sort on that data
     $query .= "MAX(IF(event_id=$dernier_stage_id, 1, 0)) AS inscrit_dernier_stage,  ";
 
-    # Ajoute une colonne par stage actif et évalue si le member/stagiaire y est inscrit
-    # S'il est inscrit, on récupère l'id de l'inscription (qui pourra servir à le désinscrire)
+    # Adds a column for each active event and finds out if the member subscribed to the event
+    # If subscribed, we get the subscription id (which will be used to cancel subscription)
     foreach ($events_actifs as $event) {
       $select[] =  "MAX(IF(event_id=$event->id, events_members.id, 0))";
       }
@@ -94,7 +94,7 @@ class EventsMember{
     return $subscriptions;
   }
 
-  # Inscrit un membre à un event/stage
+  # Subscribe a member to an event
   function associer() {
     global $mysqli;
 
@@ -106,49 +106,24 @@ class EventsMember{
     return $subscription_id;
     }
 
-  # Désinscrit un membre d'un event/stage
+  # Cancel a subscription
   function dissocier() {
     global $mysqli;
 
     $result = $mysqli->query("DELETE FROM events_members WHERE event_id=$this->event_id AND member_id=$this->member_id");
     }
 
-  # met à jour une inscription dans la base
+  # updates a subscription
   function update(){
     global $mysqli;
 
-    $query = "UPDATE events_members
-              SET moniteur='$this->moniteur', pieton='$this->pieton', materiel='$this->materiel'
-              WHERE id=$this->id";
-    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
+    #$query = "UPDATE events_members
+    #          SET materiel='$this->materiel'
+    #          WHERE id=$this->id";
+    #$result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error() . $query);
     }
 
-  # Fournit les inscrits au stage
-  function inscrits_au_stage($event_id){
-    global $mysqli;
-
-    $liste_emails = "";
-
-    # Construction de la requête toutes les inscription des membres actifs aux stages actifs
-    $query = 'SELECT ';
-    $query .= ' m.email';
-    $query .= " FROM members m
-                INNER JOIN events_members em ON em.member_id = m.id
-                WHERE em.event_id = $event_id
-                AND m.email != ''
-                ORDER BY m.nom
-                ";
-
-    $result = $mysqli->query($query) or die('Échec de la requête : ' . mysql_error());
-
-    while ($subscription = $result->fetch_array()) {
-      $liste_emails .= $subscription["email"] . ";";
-    }
-
-    return $liste_emails;
-  }
-
-  # initialise l'objet avec le tableau fourni en paramètre
+  # initializes objet with the array given as a parameter
   protected function init($t_init){
     $this->moniteur = $t_init['moniteur'];
     $this->pieton = $t_init['pieton' ];
